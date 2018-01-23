@@ -28,10 +28,20 @@ new XsWorkbook(
 ).saveTo("Test.xlsx");
 ```
 This is how the result looks like:
-<img src="https://i.imgur.com/3hUJkJ2.png" width="1122" height="242"/>
+<img src="https://i.imgur.com/3hUJkJ2.png"/>
 
 ## Custom styles
-You can create custom cells/rows/sheets by extending appropriate template class and implement its constructor.
+You can create custom cells/rows/sheets:
+```java
+new XsWorkbook(
+    new XsSheet(
+        new MyCustomRow("Boris", "Miksic", "ID:2450"),
+        new MyCustomRow("Mirko", "Mirkic", "ID:1690")
+    )
+).saveTo("Test.xlsx");
+
+```
+Just extend appropriate template class and pass custom row/cell object to its constructor:
 ```java
 private static class MyCustomRow extends RowTemplate {
 
@@ -56,18 +66,9 @@ private static class MyGreyCell extends CellTemplate {
     }
 }
 ```
-Then use it like this:
-```java
-new XsWorkbook(
-    new XsSheet(
-        new MyCustomRow("Boris", "Miksic", "ID:2450"),
-        new MyCustomRow("Mirko", "Mirkic", "ID:1690")
-    )
-).saveTo("Test.xlsx");
-```
 
-The result looks like:  
-<img src="https://i.imgur.com/9BzW6VR.png" width="770" height="212"/>
+The result:  
+<img src="https://i.imgur.com/9BzW6VR.png"/>
 
 ## Note
 Please bare in mind that this is a poc version with 90% of features missing
