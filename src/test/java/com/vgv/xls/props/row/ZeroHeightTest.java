@@ -23,8 +23,6 @@
  */
 package com.vgv.xls.props.row;
 
-import com.vgv.xls.XsProps;
-import com.vgv.xls.XsRow;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -34,29 +32,26 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for row properties.
+ * Test case for {@link ZeroHeight}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class RowPropsTest {
+public final class ZeroHeightTest {
 
     /**
-     * Add properties to row.
+     * Set row zero height.
      * @throws IOException If fails
      */
     @Test
-    public void addRowWithPropertiesToSheet() throws IOException {
+    public void setsZeroHeight() throws IOException {
         try (final Workbook wbook = new XSSFWorkbook()) {
-            final float points = 10.0F;
-            final Row row = new XsRow().with(
-                new XsProps<>(
-                    new HeightInPoints(points)
-                )
-            ).attachTo(wbook.createSheet());
+            final boolean zero = true;
+            final Row row = wbook.createSheet().createRow(0);
+            new ZeroHeight(zero).accept(row);
             MatcherAssert.assertThat(
-                row.getHeightInPoints(),
-                Matchers.equalTo(points)
+                row.getZeroHeight(),
+                Matchers.equalTo(zero)
             );
         }
     }

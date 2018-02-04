@@ -80,4 +80,56 @@ public final class XsSheet implements ESheet {
         }
         return new XsSheet(elements);
     }
+
+    /**
+     * Sheet with additional properties.
+     * @param props Properties
+     * @return WithProps WithProps
+     */
+    public XsSheet.WithProps with(final Props<Sheet> props) {
+        return new XsSheet.WithProps(this, props);
+    }
+
+    /**
+     * Sheet with additional properties.
+     */
+    public static final class WithProps implements ESheet {
+
+        /**
+         * Sheet origin.
+         */
+        private final ESheet origin;
+
+        /**
+         * Properties.
+         */
+        private final Props<Sheet> props;
+
+        /**
+         * Ctor.
+         * @param sheet Sheet
+         * @param properties Properties
+         */
+        public WithProps(final ESheet sheet, final Props<Sheet> properties) {
+            this.origin = sheet;
+            this.props = properties;
+        }
+
+        @Override
+        public Sheet attachTo(final Workbook workbook) {
+            final Sheet sheet = this.origin.attachTo(workbook);
+            this.props.accept(sheet);
+            return sheet;
+        }
+
+        @Override
+        public ESheet with(final ERow row) {
+            return this.origin.with(row);
+        }
+
+        @Override
+        public ESheet with(final Style style) {
+            return this.origin.with(style);
+        }
+    }
 }

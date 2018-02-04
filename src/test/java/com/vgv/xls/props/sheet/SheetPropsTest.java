@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls.props.row;
+package com.vgv.xls.props.sheet;
 
 import com.vgv.xls.XsProps;
-import com.vgv.xls.XsRow;
+import com.vgv.xls.XsSheet;
 import java.io.IOException;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
@@ -34,29 +34,31 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for row properties.
+ * Sheet props test.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class RowPropsTest {
+public final class SheetPropsTest {
 
     /**
-     * Add properties to row.
+     * Add new sheet with properties to workbook.
      * @throws IOException If fails
      */
     @Test
-    public void addRowWithPropertiesToSheet() throws IOException {
-        try (final Workbook wbook = new XSSFWorkbook()) {
-            final float points = 10.0F;
-            final Row row = new XsRow().with(
-                new XsProps<>(
-                    new HeightInPoints(points)
+    public void addsSheetWithPropertiesToWorkbook() throws IOException {
+        try (final Workbook workbook = new XSSFWorkbook()) {
+            final int width = 100;
+            final Sheet sheet = new XsSheet()
+                .with(
+                    new XsProps<>(
+                        new DefaultColumnWidth(width)
+                    )
                 )
-            ).attachTo(wbook.createSheet());
+                .attachTo(workbook);
             MatcherAssert.assertThat(
-                row.getHeightInPoints(),
-                Matchers.equalTo(points)
+                sheet.getDefaultColumnWidth(),
+                Matchers.equalTo(width)
             );
         }
     }
