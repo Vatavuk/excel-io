@@ -23,7 +23,6 @@
  */
 package com.vgv.xls;
 
-import com.vgv.xls.props.row.HeightInPoints;
 import com.vgv.xls.styles.ForegroundColor;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -102,23 +101,6 @@ public final class XsRowTest {
                 row.getCell((int) row.getLastCellNum() - 1)
                     .getCellStyle().getFillForegroundColor(),
                 Matchers.equalTo(IndexedColors.GOLD.getIndex())
-            );
-        }
-    }
-
-    /**
-     * Add properties to row.
-     * @throws IOException If fails
-     */
-    @Test
-    public void addRowWithPropertiesToSheet() throws IOException {
-        try (final Workbook wbook = new XSSFWorkbook()) {
-            final float points = 10.0F;
-            final Row row = new XsRow().with(new HeightInPoints(points))
-                .attachTo(wbook.createSheet());
-            MatcherAssert.assertThat(
-                row.getHeightInPoints(),
-                Matchers.equalTo(points)
             );
         }
     }

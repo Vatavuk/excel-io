@@ -23,14 +23,40 @@
  */
 package com.vgv.xls;
 
-import java.util.function.Consumer;
-import org.apache.poi.ss.usermodel.Row;
+import com.jcabi.immutable.Array;
 
 /**
- * Row property.
+ * Properties.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
+ * @param <T> Props
  * @since 1.0
  */
-public interface RowProp extends Consumer<Row> {
+public final class XsProps<T> implements Props<T> {
+
+    /**
+     * List of properties.
+     */
+    private final Array<Props<T>> props;
+
+    /**
+     * Ctor.
+     * @param properties Properties
+     */
+    public XsProps(final Props<T>... properties) {
+        this(new Array<>(properties));
+    }
+
+    /**
+     * Ctor.
+     * @param properties Properties
+     */
+    public XsProps(final Iterable<Props<T>> properties) {
+        this.props = new Array<>(properties);
+    }
+
+    @Override
+    public void accept(final T element) {
+        this.props.forEach(prop -> prop.accept(element));
+    }
 }

@@ -23,6 +23,8 @@
  */
 package com.vgv.xls.props.row;
 
+import com.vgv.xls.XsProps;
+import com.vgv.xls.XsRow;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -87,6 +89,26 @@ public final class RowPropsTest {
             MatcherAssert.assertThat(
                 row.getZeroHeight(),
                 Matchers.equalTo(zero)
+            );
+        }
+    }
+
+    /**
+     * Add properties to row.
+     * @throws IOException If fails
+     */
+    @Test
+    public void addRowWithPropertiesToSheet() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final float points = 10.0F;
+            final Row row = new XsRow().with(
+                new XsProps<>(
+                    new HeightInPoints(points)
+                )
+            ).attachTo(wbook.createSheet());
+            MatcherAssert.assertThat(
+                row.getHeightInPoints(),
+                Matchers.equalTo(points)
             );
         }
     }

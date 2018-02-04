@@ -97,7 +97,7 @@ public final class XsRow implements ERow {
      * @param props Properties
      * @return WithProps WithProps
      */
-    public XsRow.WithProps with(final RowProp... props) {
+    public XsRow.WithProps with(final Props<Row> props) {
         return new XsRow.WithProps(this, props);
     }
 
@@ -112,34 +112,24 @@ public final class XsRow implements ERow {
         private final ERow origin;
 
         /**
-         * List of properties.
+         * Properties.
          */
-        private final Array<RowProp> props;
+        private final Props<Row> props;
 
         /**
          * Ctor.
          * @param row Row
          * @param properties Properties
          */
-        public WithProps(final ERow row, final RowProp... properties) {
-            this(row, new Array<>(properties));
-        }
-
-        /**
-         * Ctor.
-         * @param row Row
-         * @param properties Properties
-         */
-        public WithProps(final ERow row,
-            final Iterable<RowProp> properties) {
+        public WithProps(final ERow row, final Props<Row> properties) {
             this.origin = row;
-            this.props = new Array<>(properties);
+            this.props = properties;
         }
 
         @Override
         public Row attachTo(final Sheet sheet) {
             final Row row = this.origin.attachTo(sheet);
-            this.props.forEach(prop -> prop.accept(row));
+            this.props.accept(row);
             return row;
         }
 

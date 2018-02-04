@@ -24,13 +24,13 @@
 package com.vgv.xls;
 
 import java.util.function.Consumer;
-import org.apache.poi.ss.usermodel.Sheet;
 
 /**
- * Sheet property.
+ * Properties.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
+ * @param <T> Props
  * @since 1.0
  */
-public interface SheetProp extends Consumer<Sheet> {
+public interface Props<T> extends Consumer<T> {
 }

@@ -23,7 +23,7 @@
  */
 package com.vgv.xls.props.sheet;
 
-import com.vgv.xls.SheetProp;
+import com.vgv.xls.Props;
 import org.apache.poi.ss.usermodel.Sheet;
 
 /**
@@ -32,7 +32,7 @@ import org.apache.poi.ss.usermodel.Sheet;
  * @version $Id$
  * @since 1.0
  */
-public final class DefaultColumnWidth implements SheetProp {
+public final class DefaultColumnWidth implements Props<Sheet> {
 
     /**
      * Width in pixels.

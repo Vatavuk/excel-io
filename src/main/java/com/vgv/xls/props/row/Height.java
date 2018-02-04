@@ -23,7 +23,7 @@
  */
 package com.vgv.xls.props.row;
 
-import com.vgv.xls.RowProp;
+import com.vgv.xls.Props;
 import org.apache.poi.ss.usermodel.Row;
 
 /**
@@ -33,7 +33,7 @@ import org.apache.poi.ss.usermodel.Row;
  * @since 1.0
  */
 @SuppressWarnings("PMD.AvoidUsingShortType")
-public final class Height implements RowProp {
+public final class Height implements Props<Row> {
 
     /**
      * Height.
