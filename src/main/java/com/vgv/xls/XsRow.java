@@ -35,6 +35,7 @@ import org.apache.poi.ss.usermodel.Sheet;
  * @version $Id$
  * @since 1.0
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public final class XsRow implements ERow {
 
     /**
@@ -89,5 +90,77 @@ public final class XsRow implements ERow {
     @Override
     public ERow with(final ECells elements) {
         return new XsRow(this.cells.with(elements.asArray()));
+    }
+
+    /**
+     * Row with properties.
+     * @param props Properties
+     * @return WithProps WithProps
+     */
+    public XsRow.WithProps with(final RowProp... props) {
+        return new XsRow.WithProps(this, props);
+    }
+
+    /**
+     * Row with additional properties.
+     */
+    public static final class WithProps implements ERow {
+
+        /**
+         * Row origin.
+         */
+        private final ERow origin;
+
+        /**
+         * List of properties.
+         */
+        private final Array<RowProp> props;
+
+        /**
+         * Ctor.
+         * @param row Row
+         * @param properties Properties
+         */
+        public WithProps(final ERow row, final RowProp... properties) {
+            this(row, new Array<>(properties));
+        }
+
+        /**
+         * Ctor.
+         * @param row Row
+         * @param properties Properties
+         */
+        public WithProps(final ERow row,
+            final Iterable<RowProp> properties) {
+            this.origin = row;
+            this.props = new Array<>(properties);
+        }
+
+        @Override
+        public Row attachTo(final Sheet sheet) {
+            final Row row = this.origin.attachTo(sheet);
+            this.props.forEach(prop -> prop.accept(row));
+            return row;
+        }
+
+        @Override
+        public ERow with(final Style style) {
+            return this.origin.with(style);
+        }
+
+        @Override
+        public ERow with(final ECell... cells) {
+            return this.origin.with(cells);
+        }
+
+        @Override
+        public ERow with(final ECell cell) {
+            return this.origin.with(cell);
+        }
+
+        @Override
+        public ERow with(final ECells cells) {
+            return this.origin.with(cells);
+        }
     }
 }

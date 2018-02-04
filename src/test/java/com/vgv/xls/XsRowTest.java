@@ -23,6 +23,7 @@
  */
 package com.vgv.xls;
 
+import com.vgv.xls.props.HeightInPoints;
 import com.vgv.xls.styles.ForegroundColor;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -43,18 +44,18 @@ public final class XsRowTest {
 
     /**
      * Add row to a sheet.
-     * @throws IOException IOException
+     * @throws IOException If fails
      */
     @Test
     @SuppressWarnings("PMD.AvoidUsingShortType")
     public void addsRowToSheet() throws IOException {
-        try (final Workbook workbook = new XSSFWorkbook()) {
+        try (final Workbook wbook = new XSSFWorkbook()) {
             final int expected = 4;
             final Row row =
                 new XsRow()
                     .with(new TextCell("someText"))
                     .with(new TextCells("a", "b", "c"))
-                    .attachTo(workbook.createSheet());
+                    .attachTo(wbook.createSheet());
             MatcherAssert.assertThat(
                 row.getLastCellNum(),
                 Matchers.equalTo((short) expected)
@@ -64,11 +65,11 @@ public final class XsRowTest {
 
     /**
      * Add styled row to a sheet.
-     * @throws IOException IOException
+     * @throws IOException If fails
      */
     @Test
     public void addsRowWithStyleToSheet() throws IOException {
-        try (final Workbook workbook = new XSSFWorkbook()) {
+        try (final Workbook wbook = new XSSFWorkbook()) {
             final Row row =
                 new XsRow()
                     .with(new TextCells("a", "b", "c"))
@@ -90,7 +91,7 @@ public final class XsRowTest {
                         )
                     )
                     .attachTo(
-                        workbook.createSheet()
+                        wbook.createSheet()
                     );
             MatcherAssert.assertThat(
                 row.getCell((int) row.getLastCellNum() - 2)
@@ -101,6 +102,23 @@ public final class XsRowTest {
                 row.getCell((int) row.getLastCellNum() - 1)
                     .getCellStyle().getFillForegroundColor(),
                 Matchers.equalTo(IndexedColors.GOLD.getIndex())
+            );
+        }
+    }
+
+    /**
+     * Add properties to row.
+     * @throws IOException If fails
+     */
+    @Test
+    public void addRowWithPropertiesToSheet() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final float points = 10.0F;
+            final Row row = new XsRow().with(new HeightInPoints(points))
+                .attachTo(wbook.createSheet());
+            MatcherAssert.assertThat(
+                row.getHeightInPoints(),
+                Matchers.equalTo(points)
             );
         }
     }
