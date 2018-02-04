@@ -53,7 +53,7 @@ public class StyleTemplate implements Style {
     }
 
     @Override
-    public final Style with(final StyleProperty property) {
+    public final Style with(final CellProp property) {
         return this.origin.with(property);
     }
 }

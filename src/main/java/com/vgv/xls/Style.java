@@ -46,5 +46,5 @@ public interface Style {
      * @param property Property
      * @return Style
      */
-    Style with(StyleProperty property);
+    Style with(CellProp property);
 }

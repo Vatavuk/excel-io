@@ -21,21 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.props;
 
-import org.apache.poi.ss.usermodel.CellStyle;
+import com.vgv.xls.RowProp;
+import org.apache.poi.ss.usermodel.Row;
 
 /**
- * StyleProperty.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Row height.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public interface StyleProperty {
+@SuppressWarnings("PMD.AvoidUsingShortType")
+public final class Height implements RowProp {
 
     /**
-     * Attach property to a cell style.
-     * @param style Cell style
+     * Height.
      */
-    void attachTo(CellStyle style);
+    private final short value;
+
+    /**
+     * Ctor.
+     * @param height Height
+     */
+    public Height(final short height) {
+        this.value = height;
+    }
+
+    @Override
+    public void accept(final Row row) {
+        row.setHeight(this.value);
+    }
 }

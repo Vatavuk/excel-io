@@ -21,36 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls.styles;
+package com.vgv.xls.props;
 
-import com.vgv.xls.CellProp;
-import org.apache.poi.ss.usermodel.CellStyle;
+import com.vgv.xls.RowProp;
+import org.apache.poi.ss.usermodel.Row;
 
 /**
- * Foreground color style.
- *
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Row height in points.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-@SuppressWarnings("PMD.AvoidUsingShortType")
-public final class ForegroundColor implements CellProp {
+public final class HeightInPoints implements RowProp {
 
     /**
-     * Color.
+     * Height in points.
      */
-    private final short color;
+    private final float value;
 
     /**
      * Ctor.
-     * @param rgb Rgb color value
+     * @param points Points
      */
-    public ForegroundColor(final short rgb) {
-        this.color = rgb;
+    public HeightInPoints(final float points) {
+        this.value = points;
     }
 
     @Override
-    public void accept(final CellStyle style) {
-        style.setFillForegroundColor(this.color);
+    public void accept(final Row row) {
+        row.setHeightInPoints(this.value);
     }
 }

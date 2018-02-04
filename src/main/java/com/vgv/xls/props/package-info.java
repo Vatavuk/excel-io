@@ -21,36 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls.styles;
-
-import com.vgv.xls.CellProp;
-import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
- * Foreground color style.
+ * Properties.
  *
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-@SuppressWarnings("PMD.AvoidUsingShortType")
-public final class ForegroundColor implements CellProp {
-
-    /**
-     * Color.
-     */
-    private final short color;
-
-    /**
-     * Ctor.
-     * @param rgb Rgb color value
-     */
-    public ForegroundColor(final short rgb) {
-        this.color = rgb;
-    }
-
-    @Override
-    public void accept(final CellStyle style) {
-        style.setFillForegroundColor(this.color);
-    }
-}
+package com.vgv.xls.props;

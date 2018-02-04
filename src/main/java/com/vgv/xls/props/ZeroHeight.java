@@ -21,36 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls.styles;
+package com.vgv.xls.props;
 
-import com.vgv.xls.CellProp;
-import org.apache.poi.ss.usermodel.CellStyle;
+import com.vgv.xls.RowProp;
+import org.apache.poi.ss.usermodel.Row;
 
 /**
- * Foreground color style.
- *
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Row zero height.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-@SuppressWarnings("PMD.AvoidUsingShortType")
-public final class ForegroundColor implements CellProp {
+public final class ZeroHeight implements RowProp {
 
     /**
-     * Color.
+     * Zero height.
      */
-    private final short color;
+    private final boolean value;
 
     /**
      * Ctor.
-     * @param rgb Rgb color value
+     * @param zero Zero
      */
-    public ForegroundColor(final short rgb) {
-        this.color = rgb;
+    public ZeroHeight(final boolean zero) {
+        this.value = zero;
     }
 
     @Override
-    public void accept(final CellStyle style) {
-        style.setFillForegroundColor(this.color);
+    public void accept(final Row row) {
+        row.setZeroHeight(this.value);
     }
 }

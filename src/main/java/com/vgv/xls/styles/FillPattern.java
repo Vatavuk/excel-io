@@ -23,7 +23,7 @@
  */
 package com.vgv.xls.styles;
 
-import com.vgv.xls.StyleProperty;
+import com.vgv.xls.CellProp;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 
@@ -34,7 +34,7 @@ import org.apache.poi.ss.usermodel.FillPatternType;
  * @version $Id$
  * @since 1.0
  */
-public final class FillPattern implements StyleProperty {
+public final class FillPattern implements CellProp {
 
     /**
      * Type of fill pattern.
@@ -50,7 +50,7 @@ public final class FillPattern implements StyleProperty {
     }
 
     @Override
-    public void attachTo(final CellStyle style) {
+    public void accept(final CellStyle style) {
         style.setFillPattern(this.pattern);
     }
 }
