@@ -21,34 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls.props;
+package com.vgv.xls.props.sheet;
 
-import com.vgv.xls.RowProp;
-import org.apache.poi.ss.usermodel.Row;
+import com.vgv.xls.SheetProp;
+import org.apache.poi.ss.usermodel.Sheet;
 
 /**
- * Row height in points.
+ * Default column width.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class HeightInPoints implements RowProp {
+public final class DefaultColumnWidth implements SheetProp {
 
     /**
-     * Height in points.
+     * Width in pixels.
      */
-    private final float value;
+    private final int width;
 
     /**
      * Ctor.
-     * @param points Points
+     * @param pixels Pixels
      */
-    public HeightInPoints(final float points) {
-        this.value = points;
+    public DefaultColumnWidth(final int pixels) {
+        this.width = pixels;
     }
 
     @Override
-    public void accept(final Row row) {
-        row.setHeightInPoints(this.value);
+    public void accept(final Sheet sheet) {
+        sheet.setDefaultColumnWidth(this.width);
     }
 }

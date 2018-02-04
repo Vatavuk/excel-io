@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls.props;
+package com.vgv.xls.props.sheet;
 
 import java.io.IOException;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
@@ -32,61 +32,26 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test cases for {@link Height}, {@link HeightInPoints}, {@link ZeroHeight}.
+ * Test cases for {@link ColumnWidth}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-@SuppressWarnings("PMD.AvoidUsingShortType")
-public final class RowPropsTest {
+public final class ColumnWidthTest {
 
     /**
-     * Set row height.
+     * Set column width.
      * @throws IOException If fails
      */
     @Test
-    public void setsRowHeight() throws IOException {
+    public void setColumnWidth() throws IOException {
         try (final Workbook wbook = new XSSFWorkbook()) {
-            final short height = (short) 10;
-            final Row row = wbook.createSheet().createRow(0);
-            new Height(height).accept(row);
+            final int width = 100;
+            final Sheet sheet = wbook.createSheet();
+            new ColumnWidth(0, width).accept(sheet);
             MatcherAssert.assertThat(
-                row.getHeight(),
-                Matchers.equalTo(height)
-            );
-        }
-    }
-
-    /**
-     * Set row height in points.
-     * @throws IOException If fails
-     */
-    @Test
-    public void setsRowHightInPoints() throws IOException {
-        try (final Workbook wbook = new XSSFWorkbook()) {
-            final float points = 10.0F;
-            final Row row = wbook.createSheet().createRow(0);
-            new HeightInPoints(points).accept(row);
-            MatcherAssert.assertThat(
-                row.getHeightInPoints(),
-                Matchers.equalTo(points)
-            );
-        }
-    }
-
-    /**
-     * Set row zero height.
-     * @throws IOException If fails
-     */
-    @Test
-    public void setsZeroHeight() throws IOException {
-        try (final Workbook wbook = new XSSFWorkbook()) {
-            final boolean zero = true;
-            final Row row = wbook.createSheet().createRow(0);
-            new ZeroHeight(zero).accept(row);
-            MatcherAssert.assertThat(
-                row.getZeroHeight(),
-                Matchers.equalTo(zero)
+                sheet.getColumnWidth(0),
+                Matchers.equalTo(width)
             );
         }
     }

@@ -23,7 +23,7 @@
  */
 package com.vgv.xls;
 
-import com.vgv.xls.props.HeightInPoints;
+import com.vgv.xls.props.row.HeightInPoints;
 import com.vgv.xls.styles.ForegroundColor;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.IndexedColors;

@@ -21,35 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls.props;
+package com.vgv.xls.props.sheet;
 
-import com.vgv.xls.RowProp;
-import org.apache.poi.ss.usermodel.Row;
+import java.io.IOException;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Row height.
+ * Test cases for {@link DefaultColumnWidth}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-@SuppressWarnings("PMD.AvoidUsingShortType")
-public final class Height implements RowProp {
+public final class DefaultColumnWidthTest {
 
     /**
-     * Height.
+     * Set default column width.
+     * @throws IOException If fails
      */
-    private final short value;
-
-    /**
-     * Ctor.
-     * @param height Height
-     */
-    public Height(final short height) {
-        this.value = height;
-    }
-
-    @Override
-    public void accept(final Row row) {
-        row.setHeight(this.value);
+    @Test
+    public void setsDefaultColumnWidth() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final int width = 100;
+            final Sheet sheet = wbook.createSheet();
+            new DefaultColumnWidth(width).accept(sheet);
+            MatcherAssert.assertThat(
+                sheet.getDefaultColumnWidth(),
+                Matchers.equalTo(width)
+            );
+        }
     }
 }

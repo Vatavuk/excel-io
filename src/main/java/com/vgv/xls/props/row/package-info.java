@@ -21,34 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls.props;
-
-import com.vgv.xls.RowProp;
-import org.apache.poi.ss.usermodel.Row;
 
 /**
- * Row zero height.
+ * Row properties.
+ *
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class ZeroHeight implements RowProp {
-
-    /**
-     * Zero height.
-     */
-    private final boolean value;
-
-    /**
-     * Ctor.
-     * @param zero Zero
-     */
-    public ZeroHeight(final boolean zero) {
-        this.value = zero;
-    }
-
-    @Override
-    public void accept(final Row row) {
-        row.setZeroHeight(this.value);
-    }
-}
+package com.vgv.xls.props.row;
