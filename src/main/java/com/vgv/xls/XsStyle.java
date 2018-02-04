@@ -38,13 +38,13 @@ public final class XsStyle implements Style {
     /**
      * Array of style properties.
      */
-    private final Array<CellProp> properties;
+    private final Array<Props<CellStyle>> properties;
 
     /**
      * Ctor.
      * @param props Properties
      */
-    public XsStyle(final CellProp... props) {
+    public XsStyle(final Props<CellStyle>... props) {
         this(new Array<>(props));
     }
 
@@ -52,21 +52,21 @@ public final class XsStyle implements Style {
      * Ctor.
      * @param props Properties
      */
-    public XsStyle(final Iterable<CellProp> props) {
+    public XsStyle(final Iterable<Props<CellStyle>> props) {
         this.properties = new Array<>(props);
     }
 
     @Override
     public CellStyle attachTo(final Cell cell) {
         final CellStyle style = cell.getCellStyle();
-        for (final CellProp property : this.properties) {
+        for (final Props<CellStyle> property : this.properties) {
             property.accept(style);
         }
         return style;
     }
 
     @Override
-    public Style with(final CellProp element) {
+    public Style with(final Props<CellStyle> element) {
         return new XsStyle(this.properties.with(element));
     }
 }

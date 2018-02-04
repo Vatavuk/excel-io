@@ -23,7 +23,7 @@
  */
 package com.vgv.xls.styles;
 
-import com.vgv.xls.CellProp;
+import com.vgv.xls.Props;
 import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
@@ -34,7 +34,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
  * @since 1.0
  */
 @SuppressWarnings("PMD.AvoidUsingShortType")
-public final class ForegroundColor implements CellProp {
+public final class ForegroundColor implements Props<CellStyle> {
 
     /**
      * Color.

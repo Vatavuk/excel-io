@@ -23,10 +23,12 @@
  */
 package com.vgv.xls;
 
+import com.vgv.xls.styles.FillPattern;
 import com.vgv.xls.styles.ForegroundColor;
 import java.io.IOException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
@@ -34,57 +36,61 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for {@link XsSheet}.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Test case for {@link StyleTemplate}.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
  */
-public final class XsSheetTest {
+public final class StyleTemplateTest {
 
     /**
-     * Add sheet to a workbook.
-     * @throws IOException IOException
+     * Create custom cell style.
+     * @throws IOException If fails
      */
     @Test
-    public void addsSheetToWorkbook() throws IOException {
-        try (final Workbook workbook = new XSSFWorkbook()) {
-            final int expected = 1;
-            final String title = "testTitle";
-            final Sheet sheet = new XsSheet(title)
-                .with(new XsRow())
-                .attachTo(workbook);
+    public void createsCustomStyle() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final Cell cell = wbook.createSheet()
+                .createRow(0).createCell(0);
+            new StyleTemplateTest.GrayBackground().attachTo(cell);
             MatcherAssert.assertThat(
-                sheet.getLastRowNum(),
-                Matchers.equalTo(expected)
-            );
-            MatcherAssert.assertThat(
-                sheet.getSheetName(),
-                Matchers.equalTo(title)
+                cell.getCellStyle().getFillForegroundColor(),
+                Matchers.equalTo(IndexedColors.GREY_25_PERCENT.getIndex())
             );
         }
     }
 
     /**
-     * Add styled sheet to a workbook.
-     * @throws IOException IOException
+     * Create custom cell style with additional property.
+     * @throws IOException If fails
      */
     @Test
-    public void addsSheetWithStyleToWorkbook() throws IOException {
-        try (final Workbook workbook = new XSSFWorkbook()) {
-            final Sheet sheet = new XsSheet(new XsRow(new TextCell("text")))
-                .with(
-                    new XsStyle(
-                        new ForegroundColor(
-                            IndexedColors.GOLD.getIndex()
-                        )
-                    )
-                )
-                .attachTo(workbook);
+    public void createsCustomStyleWithProperty() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final Cell cell = wbook.createSheet()
+                .createRow(0).createCell(0);
+            new StyleTemplateTest.GrayBackground()
+                .with(new FillPattern(FillPatternType.SOLID_FOREGROUND))
+                .attachTo(cell);
             MatcherAssert.assertThat(
-                sheet.getRow(1).getCell(0)
-                    .getCellStyle().getFillForegroundColor(),
-                Matchers.equalTo(IndexedColors.GOLD.getIndex())
+                cell.getCellStyle().getFillPatternEnum(),
+                Matchers.equalTo(FillPatternType.SOLID_FOREGROUND)
             );
+        }
+    }
+
+    /**
+     * Custom cell style.
+     */
+    private static final class GrayBackground extends StyleTemplate {
+
+        /**
+         * Ctor.
+         */
+        GrayBackground() {
+            super(new XsStyle(
+                new ForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex())
+            ));
         }
     }
 }

@@ -23,7 +23,7 @@
  */
 package com.vgv.xls.styles;
 
-import com.vgv.xls.CellProp;
+import com.vgv.xls.Props;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 
@@ -34,7 +34,7 @@ import org.apache.poi.ss.usermodel.FillPatternType;
  * @version $Id$
  * @since 1.0
  */
-public final class FillPattern implements CellProp {
+public final class FillPattern implements Props<CellStyle> {
 
     /**
      * Type of fill pattern.

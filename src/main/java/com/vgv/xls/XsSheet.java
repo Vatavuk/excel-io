@@ -43,24 +43,53 @@ public final class XsSheet implements ESheet {
     private final Array<ERow> rows;
 
     /**
-     * Ctor.
-     * @param elements Rows
+     * Sheet name.
      */
-    public XsSheet(final ERow... elements) {
-        this(new Array<>(elements));
+    private final String name;
+
+    /**
+     * Ctor.
+     * @param title Title
+     */
+    public XsSheet(final String title) {
+        this(title, new Array<>());
     }
 
     /**
      * Ctor.
-     * @param elements Rows
+     * @param elements Elements
      */
-    public XsSheet(final Iterable<ERow> elements) {
+    public XsSheet(final ERow... elements) {
+        this("", new Array<>(elements));
+    }
+
+    /**
+     * Ctor.
+     * @param title Title
+     * @param elements Elements
+     */
+    public XsSheet(final String title, final ERow... elements) {
+        this(title, new Array<>(elements));
+    }
+
+    /**
+     * Ctor.
+     * @param title Title
+     * @param elements Elements
+     */
+    public XsSheet(final String title, final Iterable<ERow> elements) {
+        this.name = title;
         this.rows = new Array<>(elements);
     }
 
     @Override
     public Sheet attachTo(final Workbook workbook) {
-        final Sheet sheet = workbook.createSheet();
+        final Sheet sheet;
+        if (this.name.isEmpty()) {
+            sheet = workbook.createSheet();
+        } else {
+            sheet = workbook.createSheet(this.name);
+        }
         for (final ERow row : this.rows) {
             row.attachTo(sheet);
         }
@@ -69,7 +98,7 @@ public final class XsSheet implements ESheet {
 
     @Override
     public ESheet with(final ERow element) {
-        return new XsSheet(this.rows.with(element));
+        return new XsSheet(this.name, this.rows.with(element));
     }
 
     @Override
@@ -78,7 +107,7 @@ public final class XsSheet implements ESheet {
         for (final ERow row : this.rows) {
             elements.add(row.with(style));
         }
-        return new XsSheet(elements);
+        return new XsSheet(this.name, elements);
     }
 
     /**
