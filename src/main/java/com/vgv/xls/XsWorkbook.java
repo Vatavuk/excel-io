@@ -96,7 +96,6 @@ public final class XsWorkbook implements EWorkbook {
         try (final FileOutputStream file = new FileOutputStream(path)) {
             this.workbook.write(file);
             file.flush();
-            file.close();
         }
     }
 

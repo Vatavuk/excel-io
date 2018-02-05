@@ -51,7 +51,7 @@ public final class SheetPropsTest {
             final int width = 100;
             final Sheet sheet = new XsSheet()
                 .with(
-                    new XsProps<>(
+                    new XsProps<Sheet>(
                         new DefaultColumnWidth(width)
                     )
                 )

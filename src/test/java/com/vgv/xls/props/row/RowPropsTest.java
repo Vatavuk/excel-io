@@ -50,7 +50,7 @@ public final class RowPropsTest {
         try (final Workbook wbook = new XSSFWorkbook()) {
             final float points = 10.0F;
             final Row row = new XsRow().with(
-                new XsProps<>(
+                new XsProps<Row>(
                     new HeightInPoints(points)
                 )
             ).attachTo(wbook.createSheet());

@@ -41,8 +41,17 @@ public final class XsProps<T> implements Props<T> {
 
     /**
      * Ctor.
+     */
+    public XsProps() {
+        this(new Array<>());
+    }
+
+    /**
+     * Ctor.
      * @param properties Properties
      */
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
     public XsProps(final Props<T>... properties) {
         this(new Array<>(properties));
     }

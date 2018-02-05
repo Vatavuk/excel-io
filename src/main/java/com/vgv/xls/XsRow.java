@@ -97,6 +97,7 @@ public final class XsRow implements ERow {
      * @param props Properties
      * @return WithProps WithProps
      */
+    @SuppressWarnings("unchecked")
     public XsRow.WithProps with(final Props<Row> props) {
         return new XsRow.WithProps(this, props);
     }

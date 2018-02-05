@@ -42,8 +42,17 @@ public final class XsStyle implements Style {
 
     /**
      * Ctor.
+     */
+    public XsStyle() {
+        this(new Array<>());
+    }
+
+    /**
+     * Ctor.
      * @param props Properties
      */
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
     public XsStyle(final Props<CellStyle>... props) {
         this(new Array<>(props));
     }
