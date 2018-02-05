@@ -37,7 +37,7 @@ import org.junit.Test;
  * Sheet props test.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 public final class SheetPropsTest {
 

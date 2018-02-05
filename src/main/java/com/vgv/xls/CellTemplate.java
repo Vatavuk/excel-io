@@ -44,7 +44,7 @@ import org.apache.poi.ss.usermodel.Row;
  * </pre>
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 public class CellTemplate implements ECell {
 

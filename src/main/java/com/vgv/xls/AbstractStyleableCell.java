@@ -27,7 +27,7 @@ package com.vgv.xls;
  * AbstractStyleableCell.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 abstract class AbstractStyleableCell implements ECell {
 

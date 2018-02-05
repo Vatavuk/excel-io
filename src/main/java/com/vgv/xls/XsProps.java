@@ -30,7 +30,7 @@ import com.jcabi.immutable.Array;
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @param <T> Props
- * @since 1.0
+ * @since 0.1
  */
 public final class XsProps<T> implements Props<T> {
 

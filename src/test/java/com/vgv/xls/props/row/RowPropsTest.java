@@ -37,7 +37,7 @@ import org.junit.Test;
  * Test case for row properties.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 public final class RowPropsTest {
 

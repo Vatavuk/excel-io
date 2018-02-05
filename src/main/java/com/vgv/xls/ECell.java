@@ -33,7 +33,7 @@ import org.apache.poi.ss.usermodel.Row;
  * ECell.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 @SuppressWarnings("PMD.AvoidUsingShortType")
 public interface ECell {

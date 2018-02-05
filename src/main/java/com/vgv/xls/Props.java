@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @param <T> Props
- * @since 1.0
+ * @since 0.1
  */
 public interface Props<T> extends Consumer<T> {
 }

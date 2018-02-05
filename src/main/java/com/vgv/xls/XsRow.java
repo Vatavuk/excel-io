@@ -33,7 +33,7 @@ import org.apache.poi.ss.usermodel.Sheet;
  * XsRow.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 @SuppressWarnings("PMD.TooManyMethods")
 public final class XsRow implements ERow {

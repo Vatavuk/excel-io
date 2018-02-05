@@ -30,7 +30,7 @@ import org.apache.poi.ss.usermodel.Row;
  * Row zero height.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
 public final class ZeroHeight implements Props<Row> {
 
