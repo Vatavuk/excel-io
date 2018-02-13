@@ -4,7 +4,7 @@ This is an object-oriented java library for reading and writing Microsoft Office
 It is a wrapper around Apache POI that provides elegant and user friendly interface for creating Excel documents. 
 
 **Note**.
-This is the early version of product with lot of functionality missing (mainly styles and properties).
+This is the early version of product with a lot of features missing (mainly styles and properties).
 I will be regularly committing more and more functionality.
 
 
