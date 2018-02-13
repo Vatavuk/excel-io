@@ -1,7 +1,28 @@
+#Vgv-xls
+
 This is an object-oriented java library for reading and writing Microsoft Office Excel spreadsheets.
 It is a wrapper around Apache POI that provides elegant and user friendly interface for creating Excel documents. 
 
-## Usage
+**Note**.
+This is the early version of product with lot of functionality missing (mainly styles and properties).
+I will be regularly committing more and more functionality.
+
+
+**How to use**.
+Latest version [here](https://github.com/Vatavuk/vgv-xls/releases)
+
+```xml
+<dependency>
+    <groupId>hr.com.vgv</groupId>
+    <artifactId>vgv-xls</artifactId>
+    <version>0.2</version>
+</dependency>
+```
+
+Java version required: 1.8+.
+
+
+## Example
 ```java
 new XsWorkbook(
     new XsSheet(
@@ -24,6 +45,7 @@ new XsWorkbook(
                     )
                 )
             )
+            .with(new XsProps<>(new Height((short) 20)))
     )
 ).saveTo("Test.xlsx");
 ```
@@ -70,6 +92,11 @@ private static class MyGreyCell extends CellTemplate {
 The result:  
 <img src="https://i.imgur.com/9BzW6VR.png"/>
 
-## Note
-Please bare in mind that this is a poc version with 90% of features missing
-(mainly styles and properties). I will be regularly committing more and more functionality.
+## Contribution
+You can contribute by forking the repo and sending a pull request.
+Make sure your branch builds without any warnings/issues:
+
+```
+mvn clean install -Pqulice
+```
+
