@@ -23,8 +23,8 @@
  */
 package com.vgv.xls.styles;
 
-import com.vgv.xls.ECellStyle;
 import com.vgv.xls.Props;
+import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
  * Cell data format.
@@ -33,7 +33,7 @@ import com.vgv.xls.Props;
  * @since 0.1
  */
 @SuppressWarnings("PMD.AvoidUsingShortType")
-public final class DataFormat implements Props<ECellStyle> {
+public final class DataFormat implements Props<CellStyle> {
 
     /**
      * Format.
@@ -49,7 +49,7 @@ public final class DataFormat implements Props<ECellStyle> {
     }
 
     @Override
-    public void accept(final ECellStyle style) {
+    public void accept(final CellStyle style) {
         style.setDataFormat(this.value);
     }
 }

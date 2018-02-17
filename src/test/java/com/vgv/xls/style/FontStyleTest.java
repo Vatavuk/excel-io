@@ -1,8 +1,9 @@
 package com.vgv.xls.style;
 
-import com.vgv.xls.ECellStyle;
+import com.vgv.xls.XsCellStyle;
 import com.vgv.xls.styles.FontStyle;
 import java.io.IOException;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
@@ -20,7 +21,7 @@ public final class FontStyleTest {
     public void addNewFont() throws IOException {
         try (final Workbook wbook = new XSSFWorkbook()) {
             final String name = "TimesNewRoman";
-            final ECellStyle style = new ECellStyle.Default(wbook);
+            final CellStyle style = new XsCellStyle(wbook);
             new FontStyle()
                 .withName(name)
                 .accept(style);

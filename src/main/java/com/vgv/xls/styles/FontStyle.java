@@ -24,9 +24,10 @@
 package com.vgv.xls.styles;
 
 import com.jcabi.immutable.Array;
-import com.vgv.xls.ECellStyle;
 import com.vgv.xls.Props;
+import com.vgv.xls.XsCellStyle;
 import java.util.function.Consumer;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 
 /**
@@ -35,7 +36,7 @@ import org.apache.poi.ss.usermodel.Font;
  * @version $Id$
  * @since 1.0
  */
-public final class FontStyle implements Props<ECellStyle> {
+public final class FontStyle implements Props<CellStyle> {
 
     /**
      * Font properties.
@@ -58,8 +59,9 @@ public final class FontStyle implements Props<ECellStyle> {
     }
 
     @Override
-    public void accept(final ECellStyle style) {
-        final Font font = style.workbook().createFont();
+    //@SuppressWarnings("unchecked")
+    public void accept(final CellStyle style) {
+        final Font font = ((XsCellStyle) style).workbook().createFont();
         this.props.forEach(
             prop -> prop.accept(font)
         );

@@ -24,6 +24,7 @@
 package com.vgv.xls;
 
 import com.vgv.xls.styles.FillPattern;
+import com.vgv.xls.styles.FontStyle;
 import com.vgv.xls.styles.ForegroundColor;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -68,6 +69,7 @@ public final class TextCellTest {
     @Test
     public void addsStyleToCell() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
+            final String name = "TimesNewRoman";
             final Cell cell = new TextCell("text").with(
                 new XsStyle()
                     .with(
@@ -76,6 +78,7 @@ public final class TextCellTest {
                         )
                     )
                     .with(new FillPattern(FillPatternType.SOLID_FOREGROUND))
+                    .with(new FontStyle().withName(name))
             )
                 .attachTo(
                     workbook.createSheet().createRow(0)
@@ -87,6 +90,11 @@ public final class TextCellTest {
             MatcherAssert.assertThat(
                 cell.getCellStyle().getFillPatternEnum(),
                 Matchers.equalTo(FillPatternType.SOLID_FOREGROUND)
+            );
+            MatcherAssert.assertThat(
+                workbook.getFontAt(
+                    cell.getCellStyle().getFontIndex()).getFontName(),
+                Matchers.equalTo(name)
             );
         }
     }
