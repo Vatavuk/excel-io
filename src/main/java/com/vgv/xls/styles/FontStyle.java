@@ -23,33 +23,55 @@
  */
 package com.vgv.xls.styles;
 
+import com.jcabi.immutable.Array;
 import com.vgv.xls.ECellStyle;
 import com.vgv.xls.Props;
+import java.util.function.Consumer;
+import org.apache.poi.ss.usermodel.Font;
 
 /**
- * Cell data format.
+ * Font.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 1.0
  */
-@SuppressWarnings("PMD.AvoidUsingShortType")
-public final class DataFormat implements Props<ECellStyle> {
+public final class FontStyle implements Props<ECellStyle> {
 
     /**
-     * Format.
+     * Font properties.
      */
-    private final short value;
+    private final Array<Consumer<Font>> props;
 
     /**
      * Ctor.
-     * @param format Format
      */
-    public DataFormat(final short format) {
-        this.value = format;
+    public FontStyle() {
+        this(new Array<>());
+    }
+
+    /**
+     * Ctor.
+     * @param consumers Font properties
+     */
+    public FontStyle(final Iterable<Consumer<Font>> consumers) {
+        this.props = new Array<>(consumers);
     }
 
     @Override
     public void accept(final ECellStyle style) {
-        style.setDataFormat(this.value);
+        final Font font = style.workbook().createFont();
+        this.props.forEach(
+            prop -> prop.accept(font)
+        );
+        style.setFont(font);
+    }
+
+    /**
+     * Font name.
+     * @param name Name
+     * @return FontStyle Font style
+     */
+    public FontStyle withName(final String name) {
+        return new FontStyle(this.props.with(font -> font.setFontName(name)));
     }
 }
