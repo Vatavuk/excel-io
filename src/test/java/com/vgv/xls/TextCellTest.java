@@ -93,7 +93,8 @@ public final class TextCellTest {
             );
             MatcherAssert.assertThat(
                 workbook.getFontAt(
-                    cell.getCellStyle().getFontIndex()).getFontName(),
+                    cell.getCellStyle().getFontIndex()
+                ).getFontName(),
                 Matchers.equalTo(name)
             );
         }

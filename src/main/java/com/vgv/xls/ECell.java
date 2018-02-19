@@ -112,8 +112,7 @@ public interface ECell {
         @Override
         public Cell attachTo(final Row row) {
             final Cell cell = this.origin.attachTo(row);
-            cell.setCellStyle(new XsCellStyle(row.getSheet().getWorkbook()));
-            //cell.setCellStyle(row.getSheet().getWorkbook().createCellStyle());
+            cell.setCellStyle(row.getSheet().getWorkbook().createCellStyle());
             for (final Style style : this.styles) {
                 style.attachTo(cell);
             }
