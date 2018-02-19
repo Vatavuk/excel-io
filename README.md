@@ -1,11 +1,13 @@
 # Vgv-xls
 
-[![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/cactoos)](http://www.rultor.com/p/yegor256/cactoos)
+[![DevOps By Rultor.com](http://www.rultor.com/b/Vatavuk/vgv-xls)](http://www.rultor.com/p/Vatavuk/vgv-xls)
 
-[![Build Status](https://codecov.io/gh/Vatavuk/vgv-xls/branch/master/graph/badge.svg)](https://codecov.io/gh/Vatavuk/vgv-xls)
+[![Build Status](https://travis-ci.org/Vatavuk/vgv-xls.svg?branch=master)](https://travis-ci.org/Vatavuk/vgv-xls)
 [![Javadocs](http://javadoc.io/badge/hr.com.vgv/vgv-xls.svg)](http://javadoc.io/doc/hr.com.vgv/vgv-xls)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Vatavuk/vgv-xls/LICENSE.txt)
+[![Maven Central](https://img.shields.io/maven-central/v/hr.com.vgv/vgv-xls.svg)](https://maven-badges.herokuapp.com/maven-central/hr.com.vgv/vgv-xls)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Vatavuk/vgv-xls/blob/master/LICENSE.txt)
 
+[![Test Coverage](https://codecov.io/gh/Vatavuk/vgv-xls/branch/master/graph/badge.svg)](https://codecov.io/gh/Vatavuk/vgv-xls)
 [![SonarQube](https://img.shields.io/badge/sonar-ok-green.svg)](https://sonarcloud.io/dashboard/index/hr.com.vgv:vgv-xls)
 
 This is an object-oriented java library for reading and writing Microsoft Office Excel spreadsheets.
