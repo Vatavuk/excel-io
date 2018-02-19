@@ -1,7 +1,10 @@
 # Vgv-xls
 
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/cactoos)](http://www.rultor.com/p/yegor256/cactoos)
+
+[![codecov](https://codecov.io/gh/Vatavuk/vgv-xls/branch/master/graph/badge.svg)](https://codecov.io/gh/Vatavuk/vgv-xls)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Vatavuk/vgv-xls/LICENSE.txt)
+
 
 This is an object-oriented java library for reading and writing Microsoft Office Excel spreadsheets.
 It is a wrapper around Apache POI that provides elegant and user friendly interface for creating Excel documents. 
