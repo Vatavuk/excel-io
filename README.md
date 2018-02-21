@@ -25,7 +25,6 @@ Latest version [here](https://github.com/Vatavuk/vgv-xls/releases)
 <dependency>
     <groupId>hr.com.vgv</groupId>
     <artifactId>vgv-xls</artifactId>
-    <version>0.3</version>
 </dependency>
 ```
 
