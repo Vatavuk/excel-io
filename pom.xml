@@ -33,7 +33,7 @@ SOFTWARE.
     </parent>
     <groupId>hr.com.vgv</groupId>
     <artifactId>vgv-xls</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.3</version>
     <packaging>jar</packaging>
     <name>vgv-xls</name>
     <description>Object-oriented java library for reading and writing
