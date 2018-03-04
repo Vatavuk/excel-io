@@ -21,66 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
 import com.jcabi.immutable.Array;
-import com.vgv.xls.styles.FillPattern;
-import java.io.IOException;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import com.vgv.xls.ECell;
+import java.util.Calendar;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for {@link TextCells}.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Test case for {@link CalendarCells}.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 1.0
  */
-public final class TextCellsTest {
+public final class CalendarCellsTest {
 
     /**
-     * Create multiple cells containing text values.
+     * Create multiple cells containing calendar values.
      */
     @Test
-    public void createsMultipleTextCells() {
+    public void createsMultipleCalendarCells() {
         final int expected = 3;
-        final Array<ECell> cells = new TextCells("a", "b", "c")
-            .asArray();
+        final Calendar calendar = Calendar.getInstance();
+        final Calendar[] dates = {calendar, calendar, calendar};
+        final Array<ECell> cells = new CalendarCells(dates).asArray();
         MatcherAssert.assertThat(
             cells.size(),
             Matchers.equalTo(expected)
         );
         MatcherAssert.assertThat(
             cells.get(0),
-            Matchers.instanceOf(TextCell.class)
+            Matchers.instanceOf(CalendarCell.class)
         );
-    }
-
-    /**
-     * Create multiple cells containing text values and specific style.
-     * @throws IOException If fails
-     */
-    @Test
-    public void createsMultipleTextCellsWithStyle() throws IOException {
-        final Array<ECell> cells = new TextCells("a", "b", "c")
-            .with(
-                new XsStyle(
-                    new FillPattern(FillPatternType.SOLID_FOREGROUND)
-                )
-            ).asArray();
-        try (final Workbook wbook = new XSSFWorkbook()) {
-            final Row row = wbook.createSheet().createRow(0);
-            for (final ECell cell : cells) {
-                cell.attachTo(row);
-            }
-            MatcherAssert.assertThat(
-                row.getCell(0).getCellStyle().getFillPatternEnum(),
-                Matchers.equalTo(FillPatternType.SOLID_FOREGROUND)
-            );
-        }
     }
 }

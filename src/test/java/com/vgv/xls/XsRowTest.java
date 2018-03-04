@@ -23,6 +23,8 @@
  */
 package com.vgv.xls;
 
+import com.vgv.xls.cells.TextCell;
+import com.vgv.xls.cells.TextCells;
 import com.vgv.xls.styles.ForegroundColor;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.IndexedColors;

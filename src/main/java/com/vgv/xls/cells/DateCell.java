@@ -21,37 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
+import com.vgv.xls.ECell;
+import java.util.Date;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
 /**
- * FormulaCell.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Cell that represents Date.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.3
  */
-public final class FormulaCell extends AbstractStyleableCell {
+public final class DateCell extends AbstractStyleableCell {
 
     /**
-     * Formula value.
+     * Date value.
      */
-    private final String value;
+    private final Date value;
 
     /**
      * Ctor.
-     * @param formula Formula
+     * @param date Date
      */
-    public FormulaCell(final String formula) {
+    public DateCell(final Date date) {
         super();
-        this.value = formula;
+        this.value = date;
     }
 
     @Override
     public Cell attachTo(final Row row) {
         final Cell cell = ECell.EMPTY.attachTo(row);
-        cell.setCellFormula(this.value);
+        cell.setCellValue(this.value);
         return cell;
     }
 }

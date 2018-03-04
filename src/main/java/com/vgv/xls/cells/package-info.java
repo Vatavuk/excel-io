@@ -21,46 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
-
-import com.jcabi.immutable.Array;
-import java.util.Date;
-import java.util.stream.Collectors;
 
 /**
- * Multiple cells with date values.
+ * Cells.
+ *
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.3
+ * @since 0.4
  */
-public final class DateCells extends AbstractStyleableCells {
-
-    /**
-     * Array of date values.
-     */
-    private final Array<Date> dates;
-
-    /**
-     * Ctor.
-     * @param values Values
-     */
-    public DateCells(final Date... values) {
-        this(new Array<>(values));
-    }
-
-    /**
-     * Ctor.
-     * @param values Values
-     */
-    public DateCells(final Iterable<Date> values) {
-        super();
-        this.dates = new Array<>(values);
-    }
-
-    @Override
-    public Array<ECell> asArray() {
-        return new Array<>(this.dates.stream()
-            .map(DateCell::new).collect(Collectors.toList())
-        );
-    }
-}
+package com.vgv.xls.cells;

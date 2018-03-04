@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
+import com.jcabi.immutable.Array;
+import com.vgv.xls.ECell;
+import com.vgv.xls.XsStyle;
 import com.vgv.xls.styles.FillPattern;
-import com.vgv.xls.styles.ForegroundColor;
-import com.vgv.xls.templates.StyleTemplate;
 import java.io.IOException;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
@@ -37,61 +37,52 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for {@link StyleTemplate}.
- * @author Vedran Vatavuk (123vgv@gmail.com)
+ * Test case for {@link TextCells}.
+ * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class StyleTemplateTest {
+public final class TextCellsTest {
 
     /**
-     * Create custom cell style.
-     * @throws IOException If fails
+     * Create multiple cells containing text values.
      */
     @Test
-    public void createsCustomStyle() throws IOException {
-        try (final Workbook wbook = new XSSFWorkbook()) {
-            final Cell cell = wbook.createSheet()
-                .createRow(0).createCell(0);
-            new StyleTemplateTest.GrayBackground().attachTo(cell);
-            MatcherAssert.assertThat(
-                cell.getCellStyle().getFillForegroundColor(),
-                Matchers.equalTo(IndexedColors.GREY_25_PERCENT.getIndex())
-            );
-        }
+    public void createsMultipleTextCells() {
+        final int expected = 3;
+        final Array<ECell> cells = new TextCells("a", "b", "c")
+            .asArray();
+        MatcherAssert.assertThat(
+            cells.size(),
+            Matchers.equalTo(expected)
+        );
+        MatcherAssert.assertThat(
+            cells.get(0),
+            Matchers.instanceOf(TextCell.class)
+        );
     }
 
     /**
-     * Create custom cell style with additional property.
+     * Create multiple cells containing text values and specific style.
      * @throws IOException If fails
      */
     @Test
-    public void createsCustomStyleWithProperty() throws IOException {
+    public void createsMultipleTextCellsWithStyle() throws IOException {
+        final Array<ECell> cells = new TextCells("a", "b", "c")
+            .with(
+                new XsStyle(
+                    new FillPattern(FillPatternType.SOLID_FOREGROUND)
+                )
+            ).asArray();
         try (final Workbook wbook = new XSSFWorkbook()) {
-            final Cell cell = wbook.createSheet()
-                .createRow(0).createCell(0);
-            new StyleTemplateTest.GrayBackground()
-                .with(new FillPattern(FillPatternType.SOLID_FOREGROUND))
-                .attachTo(cell);
+            final Row row = wbook.createSheet().createRow(0);
+            for (final ECell cell : cells) {
+                cell.attachTo(row);
+            }
             MatcherAssert.assertThat(
-                cell.getCellStyle().getFillPatternEnum(),
+                row.getCell(0).getCellStyle().getFillPatternEnum(),
                 Matchers.equalTo(FillPatternType.SOLID_FOREGROUND)
             );
-        }
-    }
-
-    /**
-     * Custom cell style.
-     */
-    private static final class GrayBackground extends StyleTemplate {
-
-        /**
-         * Ctor.
-         */
-        GrayBackground() {
-            super(new XsStyle(
-                new ForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex())
-            ));
         }
     }
 }

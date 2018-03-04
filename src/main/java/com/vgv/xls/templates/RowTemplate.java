@@ -21,37 +21,58 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.templates;
 
-import com.jcabi.immutable.Array;
-import java.util.Date;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import com.vgv.xls.ECell;
+import com.vgv.xls.ECells;
+import com.vgv.xls.ERow;
+import com.vgv.xls.Style;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 /**
- * Test case for {@link DateCells}.
- * @author Vedran Vatavuk (123vgv@gmail.com)
+ * RowTemplate.
+ * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.3
+ * @since 0.1
  */
-public final class DateCellsTest {
+public class RowTemplate implements ERow {
 
     /**
-     * Create multiple cells containing date values.
+     * Origin row.
      */
-    @Test
-    public void createsMultipleDateCells() {
-        final int expected = 3;
-        final Date[] dates = {new Date(), new Date(), new Date()};
-        final Array<ECell> cells = new DateCells(dates).asArray();
-        MatcherAssert.assertThat(
-            cells.size(),
-            Matchers.equalTo(expected)
-        );
-        MatcherAssert.assertThat(
-            cells.get(0),
-            Matchers.instanceOf(DateCell.class)
-        );
+    private final ERow origin;
+
+    /**
+     * Ctor.
+     * @param row Row
+     */
+    public RowTemplate(final ERow row) {
+        this.origin = row;
+    }
+
+    @Override
+    public final Row attachTo(final Sheet sheet) {
+        return this.origin.attachTo(sheet);
+    }
+
+    @Override
+    public final ERow with(final Style style) {
+        return this.origin.with(style);
+    }
+
+    @Override
+    public final ERow with(final ECell... cells) {
+        return this.origin.with(cells);
+    }
+
+    @Override
+    public final ERow with(final ECell cell) {
+        return this.origin.with(cell);
+    }
+
+    @Override
+    public final ERow with(final ECells cells) {
+        return this.origin.with(cells);
     }
 }

@@ -21,39 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
+import com.jcabi.immutable.Array;
+import com.vgv.xls.ECell;
+import java.util.Date;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * StyleTemplate.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Test case for {@link DateCells}.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.3
  */
-public class StyleTemplate implements Style {
+public final class DateCellsTest {
 
     /**
-     * Origin style.
+     * Create multiple cells containing date values.
      */
-    private final Style origin;
-
-    /**
-     * Ctor.
-     * @param style Style
-     */
-    public StyleTemplate(final Style style) {
-        this.origin = style;
-    }
-
-    @Override
-    public final CellStyle attachTo(final Cell cell) {
-        return this.origin.attachTo(cell);
-    }
-
-    @Override
-    public final Style with(final Props<CellStyle> property) {
-        return this.origin.with(property);
+    @Test
+    public void createsMultipleDateCells() {
+        final int expected = 3;
+        final Date[] dates = {new Date(), new Date(), new Date()};
+        final Array<ECell> cells = new DateCells(dates).asArray();
+        MatcherAssert.assertThat(
+            cells.size(),
+            Matchers.equalTo(expected)
+        );
+        MatcherAssert.assertThat(
+            cells.get(0),
+            Matchers.instanceOf(DateCell.class)
+        );
     }
 }

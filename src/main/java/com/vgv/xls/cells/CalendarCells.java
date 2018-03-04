@@ -21,40 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import java.io.IOException;
-import java.util.Date;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import com.jcabi.immutable.Array;
+import com.vgv.xls.ECell;
+import java.util.Calendar;
+import java.util.stream.Collectors;
 
 /**
- * Test case for {@link DateCell}.
+ * Multiple cells containing Calendar values.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.3
  */
-public final class DateCellTest {
+public final class CalendarCells extends AbstractStyleableCells {
 
     /**
-     * Add cell containing date value to a row.
-     * @throws IOException IOException
+     * Array of calendar values.
      */
-    @Test
-    public void addsCellContainingDateToRow() throws IOException {
-        try (final Workbook workbook = new XSSFWorkbook()) {
-            final Date date = new Date();
-            final Cell cell = new DateCell(date).attachTo(
-                workbook.createSheet().createRow(0)
-            );
-            MatcherAssert.assertThat(
-                cell.getDateCellValue(),
-                Matchers.equalTo(date)
-            );
-        }
+    private final Array<Calendar> values;
+
+    /**
+     * Ctor.
+     * @param cvalues Calendar values
+     */
+    public CalendarCells(final Calendar... cvalues) {
+        this(new Array<>(cvalues));
+    }
+
+    /**
+     * Ctor.
+     * @param cvalues Values
+     */
+    public CalendarCells(final Iterable<Calendar> cvalues) {
+        super();
+        this.values = new Array<>(cvalues);
+    }
+
+    @Override
+    public Array<ECell> asArray() {
+        return new Array<>(this.values.stream()
+            .map(CalendarCell::new).collect(Collectors.toList())
+        );
     }
 }

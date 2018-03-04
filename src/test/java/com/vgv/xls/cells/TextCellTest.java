@@ -21,8 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
+import com.vgv.xls.XsStyle;
 import com.vgv.xls.styles.FillPattern;
 import com.vgv.xls.styles.FontStyle;
 import com.vgv.xls.styles.ForegroundColor;

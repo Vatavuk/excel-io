@@ -21,53 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
+import java.io.IOException;
+import java.util.Calendar;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Template to build custom cells.
- *
- * <p>This is how you're supposed to use it:</p>
- *
- * <pre> class MyGoldCell extends CellTemplate {
- *      public MyGoldCell(final ECell cell) {
- *          super(cell.with(
- *              new XsStyle(
- *                  new ForegroundColor(IndexedColors.GOLD.getIndex()),
- *                  new FillPattern(FillPatternType.SOLID_FOREGROUND)
- *              )
- *          ));
- *      }
- *  }
- * </pre>
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Test case for {@link CalendarCell}.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.3
  */
-public class CellTemplate implements ECell {
+public final class CalendarCellTest {
 
     /**
-     * Origin cell.
+     * Add cell containing calendar value to a row.
+     * @throws IOException IOException
      */
-    private final ECell origin;
-
-    /**
-     * Ctor.
-     * @param cell Cell
-     */
-    public CellTemplate(final ECell cell) {
-        this.origin = cell;
-    }
-
-    @Override
-    public final Cell attachTo(final Row row) {
-        return this.origin.attachTo(row);
-    }
-
-    @Override
-    public final ECell with(final Style style) {
-        return this.origin.with(style);
+    @Test
+    public void addsCellContainingCalendarToRow() throws IOException {
+        try (final Workbook workbook = new XSSFWorkbook()) {
+            final Calendar calendar = Calendar.getInstance();
+            final Cell cell = new CalendarCell(calendar).attachTo(
+                workbook.createSheet().createRow(0)
+            );
+            MatcherAssert.assertThat(
+                cell.getDateCellValue(),
+                Matchers.notNullValue()
+            );
+        }
     }
 }

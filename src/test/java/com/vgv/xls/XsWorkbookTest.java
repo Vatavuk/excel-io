@@ -23,6 +23,7 @@
  */
 package com.vgv.xls;
 
+import com.vgv.xls.cells.TextCell;
 import com.vgv.xls.styles.ForegroundColor;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;

@@ -21,18 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
+
+import com.jcabi.immutable.Array;
+import com.vgv.xls.ECell;
+import java.util.stream.Collectors;
 
 /**
- * AbstractStyleableCells.
- * @author Vedran Vatavuk (123vgv@gmail.com)
+ * NumberCells.
+ * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.3
+ * @since 0.1
  */
-abstract class AbstractStyleableCells implements ECells {
+public final class NumberCells extends AbstractStyleableCells {
+
+    /**
+     * Array of numbers.
+     */
+    private final Array<Double> numbers;
+
+    /**
+     * Ctor.
+     * @param values Values
+     */
+    public NumberCells(final Double... values) {
+        this(new Array<>(values));
+    }
+
+    /**
+     * Ctor.
+     * @param values Values
+     */
+    public NumberCells(final Iterable<Double> values) {
+        super();
+        this.numbers = new Array<>(values);
+    }
 
     @Override
-    public final ECells with(final Style style) {
-        return new ECells.WithStyle(this, style);
+    public Array<ECell> asArray() {
+        return new Array<>(this.numbers.stream()
+            .map(NumberCell::new).collect(Collectors.toList())
+        );
     }
 }

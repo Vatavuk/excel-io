@@ -21,45 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import com.jcabi.immutable.Array;
-import java.util.stream.Collectors;
+import com.vgv.xls.ECell;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 /**
- * NumberCells.
+ * FormulaCell.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class NumberCells extends AbstractStyleableCells {
+public final class FormulaCell extends AbstractStyleableCell {
 
     /**
-     * Array of numbers.
+     * Formula value.
      */
-    private final Array<Double> numbers;
-
-    /**
-     * Ctor.
-     * @param values Values
-     */
-    public NumberCells(final Double... values) {
-        this(new Array<>(values));
-    }
+    private final String value;
 
     /**
      * Ctor.
-     * @param values Values
+     * @param formula Formula
      */
-    public NumberCells(final Iterable<Double> values) {
+    public FormulaCell(final String formula) {
         super();
-        this.numbers = new Array<>(values);
+        this.value = formula;
     }
 
     @Override
-    public Array<ECell> asArray() {
-        return new Array<>(this.numbers.stream()
-            .map(NumberCell::new).collect(Collectors.toList())
-        );
+    public Cell attachTo(final Row row) {
+        final Cell cell = ECell.EMPTY.attachTo(row);
+        cell.setCellFormula(this.value);
+        return cell;
     }
 }

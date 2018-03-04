@@ -21,18 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
 
 /**
- * AbstractStyleableCell.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Templates.
+ *
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.4
  */
-abstract class AbstractStyleableCell implements ECell {
-
-    @Override
-    public final ECell with(final Style style) {
-        return new ECell.WithStyle(this, style);
-    }
-}
+package com.vgv.xls.templates;

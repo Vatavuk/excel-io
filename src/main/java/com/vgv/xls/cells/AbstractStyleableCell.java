@@ -21,54 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import com.vgv.xls.ECell;
+import com.vgv.xls.Style;
 
 /**
- * RowTemplate.
+ * AbstractStyleableCell.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class RowTemplate implements ERow {
-
-    /**
-     * Origin row.
-     */
-    private final ERow origin;
-
-    /**
-     * Ctor.
-     * @param row Row
-     */
-    public RowTemplate(final ERow row) {
-        this.origin = row;
-    }
+abstract class AbstractStyleableCell implements ECell {
 
     @Override
-    public final Row attachTo(final Sheet sheet) {
-        return this.origin.attachTo(sheet);
-    }
-
-    @Override
-    public final ERow with(final Style style) {
-        return this.origin.with(style);
-    }
-
-    @Override
-    public final ERow with(final ECell... cells) {
-        return this.origin.with(cells);
-    }
-
-    @Override
-    public final ERow with(final ECell cell) {
-        return this.origin.with(cell);
-    }
-
-    @Override
-    public final ERow with(final ECells cells) {
-        return this.origin.with(cells);
+    public final ECell with(final Style style) {
+        return new ECell.WithStyle(this, style);
     }
 }

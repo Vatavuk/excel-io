@@ -21,40 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import java.io.IOException;
-import java.util.Calendar;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import com.jcabi.immutable.Array;
+import com.vgv.xls.ECell;
+import java.util.stream.Collectors;
 
 /**
- * Test case for {@link CalendarCell}.
+ * Formula cells.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.3
  */
-public final class CalendarCellTest {
+public final class FormulaCells extends AbstractStyleableCells {
 
     /**
-     * Add cell containing calendar value to a row.
-     * @throws IOException IOException
+     * Array of formula values.
      */
-    @Test
-    public void addsCellContainingCalendarToRow() throws IOException {
-        try (final Workbook workbook = new XSSFWorkbook()) {
-            final Calendar calendar = Calendar.getInstance();
-            final Cell cell = new CalendarCell(calendar).attachTo(
-                workbook.createSheet().createRow(0)
-            );
-            MatcherAssert.assertThat(
-                cell.getDateCellValue(),
-                Matchers.notNullValue()
-            );
-        }
+    private final Array<String> formulas;
+
+    /**
+     * Ctor.
+     * @param values Values
+     */
+    public FormulaCells(final String... values) {
+        this(new Array<>(values));
+    }
+
+    /**
+     * Ctor.
+     * @param values Values
+     */
+    public FormulaCells(final Iterable<String> values) {
+        super();
+        this.formulas = new Array<>(values);
+    }
+
+    @Override
+    public Array<ECell> asArray() {
+        return new Array<>(this.formulas.stream()
+            .map(FormulaCell::new).collect(Collectors.toList())
+        );
     }
 }

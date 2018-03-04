@@ -21,38 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import com.jcabi.immutable.Array;
-import java.util.Calendar;
+import java.io.IOException;
+import java.util.Date;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for {@link CalendarCells}.
+ * Test case for {@link DateCell}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.3
  */
-public final class CalendarCellsTest {
+public final class DateCellTest {
 
     /**
-     * Create multiple cells containing calendar values.
+     * Add cell containing date value to a row.
+     * @throws IOException IOException
      */
     @Test
-    public void createsMultipleCalendarCells() {
-        final int expected = 3;
-        final Calendar calendar = Calendar.getInstance();
-        final Calendar[] dates = {calendar, calendar, calendar};
-        final Array<ECell> cells = new CalendarCells(dates).asArray();
-        MatcherAssert.assertThat(
-            cells.size(),
-            Matchers.equalTo(expected)
-        );
-        MatcherAssert.assertThat(
-            cells.get(0),
-            Matchers.instanceOf(CalendarCell.class)
-        );
+    public void addsCellContainingDateToRow() throws IOException {
+        try (final Workbook workbook = new XSSFWorkbook()) {
+            final Date date = new Date();
+            final Cell cell = new DateCell(date).attachTo(
+                workbook.createSheet().createRow(0)
+            );
+            MatcherAssert.assertThat(
+                cell.getDateCellValue(),
+                Matchers.equalTo(date)
+            );
+        }
     }
 }

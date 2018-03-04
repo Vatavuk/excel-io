@@ -21,38 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import java.util.Date;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import com.jcabi.immutable.Array;
+import com.vgv.xls.ECell;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Cell that represents Date.
- * @author Vedran Vatavuk (123vgv@gmail.com)
+ * Test case for {@link NumberCells}.
+ * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.3
+ * @since 0.1
  */
-public final class DateCell extends AbstractStyleableCell {
+public final class NumberCellsTest {
 
     /**
-     * Date value.
+     * Create multiple cells containing numeric values.
      */
-    private final Date value;
-
-    /**
-     * Ctor.
-     * @param date Date
-     */
-    public DateCell(final Date date) {
-        super();
-        this.value = date;
-    }
-
-    @Override
-    public Cell attachTo(final Row row) {
-        final Cell cell = ECell.EMPTY.attachTo(row);
-        cell.setCellValue(this.value);
-        return cell;
+    @Test
+    public void createsMultipleNumberCells() {
+        final int expected = 3;
+        final Double[] numbers = {1.0, 2.0, 3.0};
+        final Array<ECell> cells = new NumberCells(numbers).asArray();
+        MatcherAssert.assertThat(
+            cells.size(),
+            Matchers.equalTo(expected)
+        );
+        MatcherAssert.assertThat(
+            cells.get(0),
+            Matchers.instanceOf(NumberCell.class)
+        );
     }
 }

@@ -21,45 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import com.jcabi.immutable.Array;
-import java.util.stream.Collectors;
+import com.vgv.xls.ECell;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 /**
- * Formula cells.
- * @author Vedran Vatavuk (123vgv@gmail.com)
+ * TextCell.
+ * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.3
+ * @since 0.1
  */
-public final class FormulaCells extends AbstractStyleableCells {
+public final class TextCell extends AbstractStyleableCell {
 
     /**
-     * Array of formula values.
+     * Textual value.
      */
-    private final Array<String> formulas;
-
-    /**
-     * Ctor.
-     * @param values Values
-     */
-    public FormulaCells(final String... values) {
-        this(new Array<>(values));
-    }
+    private final String value;
 
     /**
      * Ctor.
-     * @param values Values
+     * @param text Text
      */
-    public FormulaCells(final Iterable<String> values) {
+    public TextCell(final String text) {
         super();
-        this.formulas = new Array<>(values);
+        this.value = text;
     }
 
     @Override
-    public Array<ECell> asArray() {
-        return new Array<>(this.formulas.stream()
-            .map(FormulaCell::new).collect(Collectors.toList())
-        );
+    public Cell attachTo(final Row row) {
+        final Cell cell =  ECell.EMPTY.attachTo(row);
+        cell.setCellValue(this.value);
+        return cell;
     }
 }

@@ -21,36 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import com.jcabi.immutable.Array;
+import java.io.IOException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for {@link FormulaCells}.
- * @author Vedran Vatavuk (123vgv@gmail.com)
+ * Test case for {@link NumberCell}.
+ * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.1
  */
-public final class FormulaCellsTest {
+public final class NumberCellTest {
 
     /**
-     * Create multiple cells containing numeric values.
+     * Add cell containing numeric value to a row.
+     * @throws IOException IOException
      */
     @Test
-    public void createsMultipleNumberCells() {
-        final int expected = 3;
-        final String[] formulas = {"A+B", "A*B", "A-B"};
-        final Array<ECell> cells = new FormulaCells(formulas).asArray();
-        MatcherAssert.assertThat(
-            cells.size(),
-            Matchers.equalTo(expected)
-        );
-        MatcherAssert.assertThat(
-            cells.get(0),
-            Matchers.instanceOf(FormulaCell.class)
-        );
+    public void addsCellContainingNumberToRow() throws IOException {
+        try (final Workbook workbook = new XSSFWorkbook()) {
+            final Double number = 5.0;
+            final Cell cell = new NumberCell(number).attachTo(
+                workbook.createSheet().createRow(0)
+            );
+            MatcherAssert.assertThat(
+                cell.getNumericCellValue(),
+                Matchers.equalTo(number)
+            );
+        }
     }
 }

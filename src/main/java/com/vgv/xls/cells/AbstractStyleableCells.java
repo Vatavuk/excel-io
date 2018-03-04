@@ -21,37 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import com.vgv.xls.ECells;
+import com.vgv.xls.Style;
 
 /**
- * TextCell.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * AbstractStyleableCells.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.3
  */
-public final class TextCell extends AbstractStyleableCell {
-
-    /**
-     * Textual value.
-     */
-    private final String value;
-
-    /**
-     * Ctor.
-     * @param text Text
-     */
-    public TextCell(final String text) {
-        super();
-        this.value = text;
-    }
+abstract class AbstractStyleableCells implements ECells {
 
     @Override
-    public Cell attachTo(final Row row) {
-        final Cell cell =  ECell.EMPTY.attachTo(row);
-        cell.setCellValue(this.value);
-        return cell;
+    public final ECells with(final Style style) {
+        return new ECells.WithStyle(this, style);
     }
 }

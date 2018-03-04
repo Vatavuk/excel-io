@@ -21,46 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.templates;
 
-import com.jcabi.immutable.Array;
-import java.util.Calendar;
-import java.util.stream.Collectors;
+import com.vgv.xls.Props;
+import com.vgv.xls.Style;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
- * Multiple cells containing Calendar values.
- * @author Vedran Vatavuk (123vgv@gmail.com)
+ * StyleTemplate.
+ * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.3
+ * @since 0.1
  */
-public final class CalendarCells extends AbstractStyleableCells {
+public class StyleTemplate implements Style {
 
     /**
-     * Array of calendar values.
+     * Origin style.
      */
-    private final Array<Calendar> values;
-
-    /**
-     * Ctor.
-     * @param cvalues Calendar values
-     */
-    public CalendarCells(final Calendar... cvalues) {
-        this(new Array<>(cvalues));
-    }
+    private final Style origin;
 
     /**
      * Ctor.
-     * @param cvalues Values
+     * @param style Style
      */
-    public CalendarCells(final Iterable<Calendar> cvalues) {
-        super();
-        this.values = new Array<>(cvalues);
+    public StyleTemplate(final Style style) {
+        this.origin = style;
     }
 
     @Override
-    public Array<ECell> asArray() {
-        return new Array<>(this.values.stream()
-            .map(CalendarCell::new).collect(Collectors.toList())
-        );
+    public final CellStyle attachTo(final Cell cell) {
+        return this.origin.attachTo(cell);
+    }
+
+    @Override
+    public final Style with(final Props<CellStyle> property) {
+        return this.origin.with(property);
     }
 }

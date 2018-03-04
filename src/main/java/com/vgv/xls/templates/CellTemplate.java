@@ -21,39 +21,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.templates;
 
-import java.io.IOException;
+import com.vgv.xls.ECell;
+import com.vgv.xls.Style;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.apache.poi.ss.usermodel.Row;
 
 /**
- * Test case for {@link FormulaCell}.
+ * Template to build custom cells.
+ *
+ * <p>This is how you're supposed to use it:</p>
+ *
+ * <pre> class MyGoldCell extends CellTemplate {
+ *      public MyGoldCell(final ECell cell) {
+ *          super(cell.with(
+ *              new XsStyle(
+ *                  new ForegroundColor(IndexedColors.GOLD.getIndex()),
+ *                  new FillPattern(FillPatternType.SOLID_FOREGROUND)
+ *              )
+ *          ));
+ *      }
+ *  }
+ * </pre>
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class FormulaCellTest {
+public class CellTemplate implements ECell {
 
     /**
-     * Add cell containing formula value to a row.
-     * @throws IOException IOException
+     * Origin cell.
      */
-    @Test
-    public void addsCellWithFormulaValueToRow() throws IOException {
-        try (final Workbook workbook = new XSSFWorkbook()) {
-            final String formula = "A1+A2";
-            final Cell cell = new FormulaCell(formula).attachTo(
-                workbook.createSheet().createRow(0)
-            );
-            MatcherAssert.assertThat(
-                cell.getCellFormula(),
-                Matchers.containsString(formula)
-            );
-        }
+    private final ECell origin;
+
+    /**
+     * Ctor.
+     * @param cell Cell
+     */
+    public CellTemplate(final ECell cell) {
+        this.origin = cell;
+    }
+
+    @Override
+    public final Cell attachTo(final Row row) {
+        return this.origin.attachTo(row);
+    }
+
+    @Override
+    public final ECell with(final Style style) {
+        return this.origin.with(style);
     }
 }

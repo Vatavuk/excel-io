@@ -21,37 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import com.jcabi.immutable.Array;
+import com.vgv.xls.ECell;
+import java.util.stream.Collectors;
 
 /**
- * NumberCell.
+ * TextCells.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class NumberCell extends AbstractStyleableCell {
+public final class TextCells extends AbstractStyleableCells {
 
     /**
-     * Numeric value.
+     * Array of text values.
      */
-    private final double value;
+    private final Array<String> text;
 
     /**
      * Ctor.
-     * @param number Number
+     * @param values Values
      */
-    public NumberCell(final double number) {
+    public TextCells(final String... values) {
+        this(new Array<>(values));
+    }
+
+    /**
+     * Ctor.
+     * @param values Values
+     */
+    public TextCells(final Iterable<String> values) {
         super();
-        this.value = number;
+        this.text = new Array<>(values);
     }
 
     @Override
-    public Cell attachTo(final Row row) {
-        final Cell cell = ECell.EMPTY.attachTo(row);
-        cell.setCellValue(this.value);
-        return cell;
+    public Array<ECell> asArray() {
+        return new Array<>(this.text.stream()
+            .map(TextCell::new).collect(Collectors.toList())
+        );
     }
 }

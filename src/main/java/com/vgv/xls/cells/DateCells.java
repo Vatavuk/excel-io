@@ -21,38 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import java.util.Calendar;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import com.jcabi.immutable.Array;
+import com.vgv.xls.ECell;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 /**
- * Cell that holds calendar value.
+ * Multiple cells with date values.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.3
  */
-public final class CalendarCell extends AbstractStyleableCell {
+public final class DateCells extends AbstractStyleableCells {
 
     /**
-     * Calendar value.
+     * Array of date values.
      */
-    private final Calendar value;
+    private final Array<Date> dates;
 
     /**
      * Ctor.
-     * @param calendar Calendar
+     * @param values Values
      */
-    public CalendarCell(final Calendar calendar) {
+    public DateCells(final Date... values) {
+        this(new Array<>(values));
+    }
+
+    /**
+     * Ctor.
+     * @param values Values
+     */
+    public DateCells(final Iterable<Date> values) {
         super();
-        this.value = calendar;
+        this.dates = new Array<>(values);
     }
 
     @Override
-    public Cell attachTo(final Row row) {
-        final Cell cell = ECell.EMPTY.attachTo(row);
-        cell.setCellValue(this.value);
-        return cell;
+    public Array<ECell> asArray() {
+        return new Array<>(this.dates.stream()
+            .map(DateCell::new).collect(Collectors.toList())
+        );
     }
 }

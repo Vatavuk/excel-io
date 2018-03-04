@@ -21,36 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.cells;
 
-import com.jcabi.immutable.Array;
+import java.io.IOException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for {@link NumberCells}.
+ * Test case for {@link FormulaCell}.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class NumberCellsTest {
+public final class FormulaCellTest {
 
     /**
-     * Create multiple cells containing numeric values.
+     * Add cell containing formula value to a row.
+     * @throws IOException IOException
      */
     @Test
-    public void createsMultipleNumberCells() {
-        final int expected = 3;
-        final Double[] numbers = {1.0, 2.0, 3.0};
-        final Array<ECell> cells = new NumberCells(numbers).asArray();
-        MatcherAssert.assertThat(
-            cells.size(),
-            Matchers.equalTo(expected)
-        );
-        MatcherAssert.assertThat(
-            cells.get(0),
-            Matchers.instanceOf(NumberCell.class)
-        );
+    public void addsCellWithFormulaValueToRow() throws IOException {
+        try (final Workbook workbook = new XSSFWorkbook()) {
+            final String formula = "A1+A2";
+            final Cell cell = new FormulaCell(formula).attachTo(
+                workbook.createSheet().createRow(0)
+            );
+            MatcherAssert.assertThat(
+                cell.getCellFormula(),
+                Matchers.containsString(formula)
+            );
+        }
     }
 }

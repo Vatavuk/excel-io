@@ -23,8 +23,10 @@
  */
 package com.vgv.xls;
 
+import com.vgv.xls.cells.TextCell;
 import com.vgv.xls.styles.FillPattern;
 import com.vgv.xls.styles.ForegroundColor;
+import com.vgv.xls.templates.CellTemplate;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
