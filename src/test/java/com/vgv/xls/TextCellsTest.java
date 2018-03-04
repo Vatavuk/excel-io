@@ -24,6 +24,12 @@
 package com.vgv.xls;
 
 import com.jcabi.immutable.Array;
+import com.vgv.xls.styles.FillPattern;
+import java.io.IOException;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -52,5 +58,29 @@ public final class TextCellsTest {
             cells.get(0),
             Matchers.instanceOf(TextCell.class)
         );
+    }
+
+    /**
+     * Create multiple cells containing text values and specific style.
+     * @throws IOException If fails
+     */
+    @Test
+    public void createsMultipleTextCellsWithStyle() throws IOException {
+        final Array<ECell> cells = new TextCells("a", "b", "c")
+            .with(
+                new XsStyle(
+                    new FillPattern(FillPatternType.SOLID_FOREGROUND)
+                )
+            ).asArray();
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final Row row = wbook.createSheet().createRow(0);
+            for (final ECell cell : cells) {
+                cell.attachTo(row);
+            }
+            MatcherAssert.assertThat(
+                row.getCell(0).getCellStyle().getFillPatternEnum(),
+                Matchers.equalTo(FillPatternType.SOLID_FOREGROUND)
+            );
+        }
     }
 }

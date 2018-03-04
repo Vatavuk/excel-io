@@ -27,7 +27,7 @@ import com.vgv.xls.Props;
 import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
- * Cell data format.
+ * Cell data format. See apache POI class BuiltinFormats
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1

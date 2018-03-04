@@ -27,23 +27,23 @@ import com.jcabi.immutable.Array;
 import java.util.stream.Collectors;
 
 /**
- * TextCells.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Formula cells.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.3
  */
-public final class TextCells extends AbstractStyleableCells {
+public final class FormulaCells extends AbstractStyleableCells {
 
     /**
-     * Array of text values.
+     * Array of formula values.
      */
-    private final Array<String> text;
+    private final Array<String> formulas;
 
     /**
      * Ctor.
      * @param values Values
      */
-    public TextCells(final String... values) {
+    public FormulaCells(final String... values) {
         this(new Array<>(values));
     }
 
@@ -51,15 +51,15 @@ public final class TextCells extends AbstractStyleableCells {
      * Ctor.
      * @param values Values
      */
-    public TextCells(final Iterable<String> values) {
+    public FormulaCells(final Iterable<String> values) {
         super();
-        this.text = new Array<>(values);
+        this.formulas = new Array<>(values);
     }
 
     @Override
     public Array<ECell> asArray() {
-        return new Array<>(this.text.stream()
-            .map(TextCell::new).collect(Collectors.toList())
+        return new Array<>(this.formulas.stream()
+            .map(FormulaCell::new).collect(Collectors.toList())
         );
     }
 }

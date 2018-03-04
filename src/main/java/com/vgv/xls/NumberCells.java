@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * @version $Id$
  * @since 0.1
  */
-public final class NumberCells implements ECells {
+public final class NumberCells extends AbstractStyleableCells {
 
     /**
      * Array of numbers.
@@ -52,6 +52,7 @@ public final class NumberCells implements ECells {
      * @param values Values
      */
     public NumberCells(final Iterable<Double> values) {
+        super();
         this.numbers = new Array<>(values);
     }
 

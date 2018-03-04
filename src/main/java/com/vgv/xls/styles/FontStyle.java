@@ -34,7 +34,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
  * Font.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.2
  */
 @SuppressWarnings({"PMD.AvoidUsingShortType", "PMD.TooManyMethods"})
 public final class FontStyle implements Props<CellStyle> {

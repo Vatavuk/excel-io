@@ -21,9 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls.style;
+package com.vgv.xls.styles;
 
-import com.vgv.xls.styles.FontStyle;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -38,7 +37,7 @@ import org.junit.Test;
  * Test for {@link FontStyle}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.3
  */
 @SuppressWarnings("PMD.AvoidUsingShortType")
 public final class FontStyleTest {

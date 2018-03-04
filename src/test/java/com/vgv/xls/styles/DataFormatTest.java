@@ -21,45 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.styles;
 
-import com.jcabi.immutable.Array;
-import java.util.stream.Collectors;
+import java.io.IOException;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * TextCells.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Test for {@link DataFormat }.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.3
  */
-public final class TextCells extends AbstractStyleableCells {
+@SuppressWarnings("PMD.AvoidUsingShortType")
+public final class DataFormatTest {
 
     /**
-     * Array of text values.
+     * Add data format to cell.
+     * @throws IOException If fails
      */
-    private final Array<String> text;
-
-    /**
-     * Ctor.
-     * @param values Values
-     */
-    public TextCells(final String... values) {
-        this(new Array<>(values));
-    }
-
-    /**
-     * Ctor.
-     * @param values Values
-     */
-    public TextCells(final Iterable<String> values) {
-        super();
-        this.text = new Array<>(values);
-    }
-
-    @Override
-    public Array<ECell> asArray() {
-        return new Array<>(this.text.stream()
-            .map(TextCell::new).collect(Collectors.toList())
-        );
+    @Test
+    public void addsDataFormatStyleToCell() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final short expected = (short) 0;
+            final CellStyle style = wbook.createCellStyle();
+            new DataFormat(expected).accept(style);
+            MatcherAssert.assertThat(
+                style.getDataFormat(),
+                Matchers.equalTo(expected)
+            );
+        }
     }
 }

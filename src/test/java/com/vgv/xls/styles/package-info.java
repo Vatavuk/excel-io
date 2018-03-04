@@ -21,45 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
-
-import com.jcabi.immutable.Array;
-import java.util.stream.Collectors;
 
 /**
- * TextCells.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Styles.
+ *
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class TextCells extends AbstractStyleableCells {
-
-    /**
-     * Array of text values.
-     */
-    private final Array<String> text;
-
-    /**
-     * Ctor.
-     * @param values Values
-     */
-    public TextCells(final String... values) {
-        this(new Array<>(values));
-    }
-
-    /**
-     * Ctor.
-     * @param values Values
-     */
-    public TextCells(final Iterable<String> values) {
-        super();
-        this.text = new Array<>(values);
-    }
-
-    @Override
-    public Array<ECell> asArray() {
-        return new Array<>(this.text.stream()
-            .map(TextCell::new).collect(Collectors.toList())
-        );
-    }
-}
+package com.vgv.xls.styles;

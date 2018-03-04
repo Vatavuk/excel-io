@@ -21,12 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package com.vgv.xls;
+
+import com.jcabi.immutable.Array;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Styles.
- *
+ * Test case for {@link FormulaCells}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 1.0
  */
-package com.vgv.xls.style;
+public final class FormulaCellsTest {
+
+    /**
+     * Create multiple cells containing numeric values.
+     */
+    @Test
+    public void createsMultipleNumberCells() {
+        final int expected = 3;
+        final String[] formulas = {"A+B", "A*B", "A-B"};
+        final Array<ECell> cells = new FormulaCells(formulas).asArray();
+        MatcherAssert.assertThat(
+            cells.size(),
+            Matchers.equalTo(expected)
+        );
+        MatcherAssert.assertThat(
+            cells.get(0),
+            Matchers.instanceOf(FormulaCell.class)
+        );
+    }
+}

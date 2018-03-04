@@ -1,5 +1,6 @@
 # Vgv-xls
 
+[![EO principles respected here](http://www.elegantobjects.org/badge.svg)](http://www.elegantobjects.org)
 [![DevOps By Rultor.com](http://www.rultor.com/b/Vatavuk/vgv-xls)](http://www.rultor.com/p/Vatavuk/vgv-xls)
 
 [![Build Status](https://travis-ci.org/Vatavuk/vgv-xls.svg?branch=master)](https://travis-ci.org/Vatavuk/vgv-xls)
