@@ -6,5 +6,4 @@ release:
   script: |
     mvn versions:set "-DnewVersion=${tag}"
     git commit -am "${tag}"
-    mvn sonar:sonar -Dsonar.organization=vatavuk-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=fab2491238f62fae758d576256b78b365c7334d1
     mvn clean deploy -Pqulice -Psonatype -Pvgv-xls --settings /home/r/settings.xml
