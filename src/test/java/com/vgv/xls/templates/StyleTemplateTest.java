@@ -21,12 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.vgv.xls;
+package com.vgv.xls.templates;
 
-import com.vgv.xls.cells.TextCell;
+import com.vgv.xls.XsStyle;
 import com.vgv.xls.styles.FillPattern;
 import com.vgv.xls.styles.ForegroundColor;
-import com.vgv.xls.templates.CellTemplate;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -38,22 +37,23 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for {@link CellTemplateTest}.
+ * Test case for {@link StyleTemplate}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public final class CellTemplateTest {
+public final class StyleTemplateTest {
 
     /**
-     * Create custom cell.
+     * Create custom cell style.
      * @throws IOException If fails
      */
     @Test
-    public void createsCustomCell() throws IOException {
-        try (final Workbook workbook = new XSSFWorkbook()) {
-            final Cell cell = new CellTemplateTest.GrayTextCell()
-                .attachTo(workbook.createSheet().createRow(0));
+    public void createsCustomStyle() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final Cell cell = wbook.createSheet()
+                .createRow(0).createCell(0);
+            new StyleTemplateTest.GrayBackground().attachTo(cell);
             MatcherAssert.assertThat(
                 cell.getCellStyle().getFillForegroundColor(),
                 Matchers.equalTo(IndexedColors.GREY_25_PERCENT.getIndex())
@@ -62,19 +62,17 @@ public final class CellTemplateTest {
     }
 
     /**
-     * Create custom cell with additional style.
+     * Create custom cell style with additional property.
      * @throws IOException If fails
      */
     @Test
-    public void createsCustomCellWithStyle() throws IOException {
-        try (final Workbook workbook = new XSSFWorkbook()) {
-            final Cell cell = new CellTemplateTest.GrayTextCell()
-                .with(
-                    new XsStyle(
-                        new FillPattern(FillPatternType.SOLID_FOREGROUND)
-                    )
-                )
-                .attachTo(workbook.createSheet().createRow(0));
+    public void createsCustomStyleWithProperty() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final Cell cell = wbook.createSheet()
+                .createRow(0).createCell(0);
+            new StyleTemplateTest.GrayBackground()
+                .with(new FillPattern(FillPatternType.SOLID_FOREGROUND))
+                .attachTo(cell);
             MatcherAssert.assertThat(
                 cell.getCellStyle().getFillPatternEnum(),
                 Matchers.equalTo(FillPatternType.SOLID_FOREGROUND)
@@ -83,24 +81,17 @@ public final class CellTemplateTest {
     }
 
     /**
-     * Custom Gray cell.
+     * Custom cell style.
      */
-    private static final class GrayTextCell extends CellTemplate {
+    private static final class GrayBackground extends StyleTemplate {
 
         /**
          * Ctor.
          */
-        GrayTextCell() {
-            super(
-                new TextCell("someText")
-                    .with(
-                        new XsStyle(
-                            new ForegroundColor(
-                                IndexedColors.GREY_25_PERCENT.getIndex()
-                            )
-                        )
-                    )
-            );
+        GrayBackground() {
+            super(new XsStyle(
+                new ForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex())
+            ));
         }
     }
 }
