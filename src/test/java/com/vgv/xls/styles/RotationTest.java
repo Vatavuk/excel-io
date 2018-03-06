@@ -23,33 +23,37 @@
  */
 package com.vgv.xls.styles;
 
-import com.vgv.xls.Props;
+import java.io.IOException;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Cell alignment.
+ * Test case for  {@link Rotation}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.5
  */
-public final class Alignment implements Props<CellStyle> {
+@SuppressWarnings("PMD.AvoidUsingShortType")
+public final class RotationTest {
 
     /**
-     * Aligment.
+     * Adds cell rotation style.
+     * @throws IOException If fails
      */
-    private final HorizontalAlignment value;
-
-    /**
-     * Ctor.
-     * @param alignment Alignment
-     */
-    public Alignment(final HorizontalAlignment alignment) {
-        this.value = alignment;
-    }
-
-    @Override
-    public void accept(final CellStyle style) {
-        style.setAlignment(this.value);
+    @Test
+    public void addCellRotation() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final short expected = (short) 45;
+            final CellStyle style = wbook.createCellStyle();
+            new Rotation(expected).accept(style);
+            MatcherAssert.assertThat(
+                style.getRotation(),
+                Matchers.equalTo(expected)
+            );
+        }
     }
 }

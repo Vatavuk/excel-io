@@ -25,7 +25,6 @@ package com.vgv.xls.styles;
 
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hamcrest.MatcherAssert;
@@ -33,25 +32,27 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for {@link Alignment}.
+ * Test case for {@link Indention}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.5
  */
-public final class AlignmentTest {
+@SuppressWarnings("PMD.AvoidUsingShortType")
+public final class IndentionTest {
 
     /**
-     * Adds cell alignment.
+     * Adds indention to cell.
      * @throws IOException If fails
      */
     @Test
-    public void addsCellAlignment() throws IOException {
+    public void addIndentionToCell() throws IOException {
         try (final Workbook wbook = new XSSFWorkbook()) {
+            final short expected = (short) 10;
             final CellStyle style = wbook.createCellStyle();
-            new Alignment(HorizontalAlignment.CENTER).accept(style);
+            new Indention(expected).accept(style);
             MatcherAssert.assertThat(
-                style.getAlignmentEnum(),
-                Matchers.equalTo(HorizontalAlignment.CENTER)
+                style.getIndention(),
+                Matchers.equalTo(expected)
             );
         }
     }
