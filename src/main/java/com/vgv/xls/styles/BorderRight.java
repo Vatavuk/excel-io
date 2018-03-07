@@ -24,33 +24,32 @@
 package com.vgv.xls.styles;
 
 import com.vgv.xls.Props;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
- * Foreground cell color.
- *
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Cell right border style.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.5
  */
-@SuppressWarnings("PMD.AvoidUsingShortType")
-public final class ForegroundColor implements Props<CellStyle> {
+public final class BorderRight implements Props<CellStyle> {
 
     /**
-     * Color.
+     * Border.
      */
-    private final short color;
+    private final BorderStyle value;
 
     /**
      * Ctor.
-     * @param rgb Rgb color value
+     * @param style Style
      */
-    public ForegroundColor(final short rgb) {
-        this.color = rgb;
+    public BorderRight(final BorderStyle style) {
+        this.value = style;
     }
 
     @Override
     public void accept(final CellStyle style) {
-        style.setFillForegroundColor(this.color);
+        style.setBorderRight(this.value);
     }
 }

@@ -27,14 +27,14 @@ import com.vgv.xls.Props;
 import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
- * Foreground cell color.
+ * Background cell color.
  *
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.5
  */
 @SuppressWarnings("PMD.AvoidUsingShortType")
-public final class ForegroundColor implements Props<CellStyle> {
+public final class BackgroundColor implements Props<CellStyle> {
 
     /**
      * Color.
@@ -45,12 +45,12 @@ public final class ForegroundColor implements Props<CellStyle> {
      * Ctor.
      * @param rgb Rgb color value
      */
-    public ForegroundColor(final short rgb) {
+    public BackgroundColor(final short rgb) {
         this.color = rgb;
     }
 
     @Override
     public void accept(final CellStyle style) {
-        style.setFillForegroundColor(this.color);
+        style.setFillBackgroundColor(this.color);
     }
 }

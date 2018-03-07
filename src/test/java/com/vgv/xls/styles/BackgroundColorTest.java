@@ -23,34 +23,37 @@
  */
 package com.vgv.xls.styles;
 
-import com.vgv.xls.Props;
+import java.io.IOException;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Foreground cell color.
- *
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Test case for {@link BackgroundColor}.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.5
  */
 @SuppressWarnings("PMD.AvoidUsingShortType")
-public final class ForegroundColor implements Props<CellStyle> {
+public final class BackgroundColorTest {
 
     /**
-     * Color.
+     * Add background color to cell.
+     * @throws IOException If fails
      */
-    private final short color;
-
-    /**
-     * Ctor.
-     * @param rgb Rgb color value
-     */
-    public ForegroundColor(final short rgb) {
-        this.color = rgb;
-    }
-
-    @Override
-    public void accept(final CellStyle style) {
-        style.setFillForegroundColor(this.color);
+    @Test
+    public void addsBackgroundColorToCell() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final short expected = (short) 50;
+            final CellStyle style = wbook.createCellStyle();
+            new BackgroundColor(expected).accept(style);
+            MatcherAssert.assertThat(
+                style.getFillBackgroundColor(),
+                Matchers.equalTo(expected)
+            );
+        }
     }
 }
