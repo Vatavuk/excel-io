@@ -27,7 +27,7 @@ import com.vgv.xls.ECell;
 import com.vgv.xls.Style;
 
 /**
- * AbstractStyleableCell.
+ * Cell which style can be edited.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1

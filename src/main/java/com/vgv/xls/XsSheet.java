@@ -30,7 +30,16 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
- * XsSheet.
+ * Sheet in an excel table.
+ *
+ * <p>This is how you should use it:</p>
+ *
+ *     new XsSheet(
+ *        new XsRow()
+ *           .with(new TextCells("name", "email"))
+ *        )
+ *     )
+ *
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1

@@ -28,7 +28,7 @@ import com.vgv.xls.ECell;
 import java.util.stream.Collectors;
 
 /**
- * Formula cells.
+ * Multiples cells that hold formula values.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.3

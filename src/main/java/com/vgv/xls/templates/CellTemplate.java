@@ -31,7 +31,7 @@ import org.apache.poi.ss.usermodel.Row;
 /**
  * Template to build custom cells.
  *
- * <p>This is how you're supposed to use it:</p>
+ * <p>This is how you can use it:</p>
  *
  * <pre> class MyGoldCell extends CellTemplate {
  *      public MyGoldCell(final ECell cell) {

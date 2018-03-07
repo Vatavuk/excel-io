@@ -31,7 +31,21 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 /**
- * RowTemplate.
+ * Template to build custom rows.
+ *
+ *  <p>This is how you can use it:</p>
+ *
+ * <pre> class MyGoldRow extends RowTemplate {
+ *      public MyGoldRow(final ERow row) {
+ *          super(row.with(
+ *              new XsStyle(
+ *                  new ForegroundColor(IndexedColors.GOLD.getIndex()),
+ *                  new FillPattern(FillPatternType.SOLID_FOREGROUND)
+ *              )
+ *          ));
+ *      }
+ *  }
+ * </pre>
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1

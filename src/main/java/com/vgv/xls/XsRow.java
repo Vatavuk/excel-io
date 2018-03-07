@@ -30,7 +30,12 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 /**
- * XsRow.
+ * Row in an excel table.
+ *
+ * <p>This is how you can use it:</p>
+ *
+ *     new XsRow(new TextCell("txt"), new NumberCell(2))
+ *
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1

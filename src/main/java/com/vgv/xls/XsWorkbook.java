@@ -33,7 +33,17 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
- * XsWorkbook.
+ * Excel workbook.
+ *
+ * <p>This is how you can use it:</p>
+ *
+ *     new XsWorkbook(
+ *        new XsSheet(
+ *           new XsRow().with(new TextCells("name", "email"))
+ *           )
+ *        )
+ *      ).saveTo("Test.xlsx");
+ *
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1

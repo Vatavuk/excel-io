@@ -28,7 +28,7 @@ import java.io.IOException;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
- * EWorkbook.
+ * Workbook.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1

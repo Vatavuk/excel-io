@@ -29,7 +29,23 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
- * StyleTemplate.
+ * Template to build custom styles.
+ *
+ *  <p>This is how you can use it:</p>
+ *
+ * <pre> class MyGoldStyle extends StyleTemplate {
+ *      public MyGoldStyle(final Style style) {
+ *          super(style
+ *                  .with(
+ *                      new ForegroundColor(IndexedColors.GOLD.getIndex()
+ *                  )
+ *                  .with(
+ *                      new FillPattern(FillPatternType.SOLID_FOREGROUND)
+ *              )
+ *          ));
+ *      }
+ *  }
+ * </pre>
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1

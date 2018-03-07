@@ -28,7 +28,7 @@ import com.vgv.xls.ECell;
 import java.util.stream.Collectors;
 
 /**
- * NumberCells.
+ * Multiple cells that hold numeric values.
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
