@@ -23,14 +23,9 @@
  */
 package com.vgv.xls;
 
-import com.vgv.xls.cells.FormulaCell;
-import com.vgv.xls.cells.NumberCells;
 import com.vgv.xls.cells.TextCell;
-import com.vgv.xls.cells.TextCells;
-import com.vgv.xls.styles.FillPattern;
 import com.vgv.xls.styles.ForegroundColor;
 import java.io.IOException;
-import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.hamcrest.MatcherAssert;
@@ -90,33 +85,5 @@ public final class XsWorkbookTest {
                 .getCell(0).getCellStyle().getFillForegroundColor(),
             Matchers.equalTo(IndexedColors.GOLD.getIndex())
         );
-    }
-
-    @Test
-    public void tmp() throws Exception {
-        new XsWorkbook(
-            new XsSheet(
-                new XsRow()
-                    .with(new TextCells("name", "email", "salary", "bonus", "total"))
-                    .with(
-                        new XsStyle(
-                            new ForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex()),
-                            new FillPattern(FillPatternType.SOLID_FOREGROUND)
-                        )
-                    ),
-                new XsRow()
-                    .with(new TextCells("Steve Hook", "steve.hook@gmail.com"))
-                    .with(new NumberCells(160000.0, 35337.6))
-                    .with(new FormulaCell("SUM(C3:D3)")
-                        .with(
-                            new XsStyle(
-                                new ForegroundColor(IndexedColors.RED.getIndex()),
-                                new FillPattern(FillPatternType.SOLID_FOREGROUND)
-                            )
-                        )
-                    )
-                    //.with(new XsProps<>(new Height((short) 20)))
-            )
-        ).saveTo("Test.xlsx");
     }
 }

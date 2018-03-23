@@ -138,6 +138,7 @@ public final class XsWorkbook implements EWorkbook {
         try (final FileOutputStream file = new FileOutputStream(path);
             final Workbook wbook = this.workbook.value()) {
             this.attachSheets(wbook);
+            wbook.write(file);
             file.flush();
         }
     }

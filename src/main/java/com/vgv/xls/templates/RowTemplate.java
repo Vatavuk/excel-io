@@ -92,7 +92,7 @@ public class RowTemplate implements ERow {
     }
 
     @Override
-    public ERow with(final Props<Row> props) {
+    public final ERow with(final Props<Row> props) {
         return this.origin.with(props);
     }
 }

@@ -72,7 +72,7 @@ public interface ERow {
     /**
      * Add props to the row.
      * @param props Properties
-     * @return
+     * @return Row
      */
     ERow with(Props<Row> props);
 }

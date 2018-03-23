@@ -97,13 +97,8 @@ public final class XsRow implements ERow {
         return new XsRow(this.cells.with(elements.asArray()));
     }
 
-    /**
-     * Row with properties.
-     * @param props Properties
-     * @return WithProps WithProps
-     */
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public XsRow.WithProps with(final Props<Row> props) {
         return new XsRow.WithProps(this, props);
     }
@@ -161,7 +156,7 @@ public final class XsRow implements ERow {
         }
 
         @Override
-        public ERow with(final Props<Row> props) {
+        public ERow with(final Props<Row> properties) {
             return this;
         }
     }
