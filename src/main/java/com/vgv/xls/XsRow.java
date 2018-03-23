@@ -103,6 +103,7 @@ public final class XsRow implements ERow {
      * @return WithProps WithProps
      */
     @SuppressWarnings("unchecked")
+    @Override
     public XsRow.WithProps with(final Props<Row> props) {
         return new XsRow.WithProps(this, props);
     }
@@ -157,6 +158,11 @@ public final class XsRow implements ERow {
         @Override
         public ERow with(final ECells cells) {
             return this.origin.with(cells);
+        }
+
+        @Override
+        public ERow with(final Props<Row> props) {
+            return this;
         }
     }
 }

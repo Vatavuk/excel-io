@@ -45,8 +45,9 @@ public interface EWorkbook {
     /**
      * Describe object as a workbook.
      * @return Workbook
+     * @throws IOException IOException
      */
-    Workbook asWorkbook();
+    Workbook asWorkbook() throws IOException;
 
     /**
      * Save workbook to a file.

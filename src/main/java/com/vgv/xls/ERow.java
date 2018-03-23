@@ -68,4 +68,11 @@ public interface ERow {
      * @return Row
      */
     ERow with(ECells cells);
+
+    /**
+     * Add props to the row.
+     * @param props Properties
+     * @return
+     */
+    ERow with(Props<Row> props);
 }

@@ -25,28 +25,33 @@ package com.vgv.xls;
 
 import com.jcabi.immutable.Array;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.cactoos.Scalar;
+import org.cactoos.scalar.IoCheckedScalar;
 
 /**
  * Excel workbook.
  *
  * <p>This is how you can use it:</p>
  *
- *     new XsWorkbook(
- *        new XsSheet(
- *           new XsRow().with(new TextCells("name", "email"))
- *           )
- *        )
- *      ).saveTo("Test.xlsx");
- *
+ * new XsWorkbook(
+ * new XsSheet(
+ * new XsRow().with(new TextCells("name", "email"))
+ * )
+ * )
+ * ).saveTo("Test.xlsx");
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle ClassDataAbstractionCouplingCheck (500 lines)
  */
 public final class XsWorkbook implements EWorkbook {
 
@@ -58,14 +63,14 @@ public final class XsWorkbook implements EWorkbook {
     /**
      * Workbook.
      */
-    private final Workbook workbook;
+    private final IoCheckedScalar<Workbook> workbook;
 
     /**
      * Ctor.
      * @param elements Sheets
      */
     public XsWorkbook(final Iterable<ESheet> elements) {
-        this(elements, new XSSFWorkbook());
+        this(elements, XSSFWorkbook::new);
     }
 
     /**
@@ -73,38 +78,66 @@ public final class XsWorkbook implements EWorkbook {
      * @param elements Sheets
      */
     public XsWorkbook(final ESheet... elements) {
-        this(new Array<>(elements), new XSSFWorkbook());
+        this(new Array<>(elements), XSSFWorkbook::new);
+    }
+
+    /**
+     * Ctor.
+     * @param path File path
+     */
+    public XsWorkbook(final String path) {
+        this(new File(path));
+    }
+
+    /**
+     * Ctor.
+     * @param file File
+     */
+    public XsWorkbook(final File file) {
+        this(new Array<>(), () -> new XSSFWorkbook(new FileInputStream(file)));
+    }
+
+    /**
+     * Ctor.
+     * @param stream InputStream
+     */
+    public XsWorkbook(final InputStream stream) {
+        this(new Array<>(), () -> new XSSFWorkbook(stream));
     }
 
     /**
      * Ctor.
      * @param elements Sheets
-     * @param wbook Workbook
+     * @param scalar Scalar
      */
-    public XsWorkbook(final Iterable<ESheet> elements, final Workbook wbook) {
+    public XsWorkbook(final Iterable<ESheet> elements,
+        final Scalar<Workbook> scalar) {
         this.sheets = new Array<>(elements);
-        this.workbook = wbook;
+        this.workbook = new IoCheckedScalar<>(scalar);
     }
 
     @Override
     public ByteArrayOutputStream asStream() throws IOException {
-        this.attachSheets();
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        this.workbook.write(stream);
+        try (final Workbook wbook = this.workbook.value()) {
+            this.attachSheets(wbook);
+            wbook.write(stream);
+        }
         return stream;
     }
 
     @Override
-    public Workbook asWorkbook() {
-        this.attachSheets();
-        return this.workbook;
+    public Workbook asWorkbook() throws IOException {
+        final Workbook wbook = this.workbook.value();
+        this.attachSheets(wbook);
+        return wbook;
     }
 
     @Override
     public void saveTo(final String path) throws IOException {
-        this.attachSheets();
-        try (final FileOutputStream file = new FileOutputStream(path)) {
-            this.workbook.write(file);
+        try (final FileOutputStream file = new FileOutputStream(path);
+            final Workbook wbook = this.workbook.value()) {
+            this.attachSheets(wbook);
             file.flush();
         }
     }
@@ -124,11 +157,12 @@ public final class XsWorkbook implements EWorkbook {
     }
 
     /**
-     * Attach sheets to workbook.
+     * Attach sheets.
+     * @param wbook Workbook
      */
-    private void attachSheets() {
+    private void attachSheets(final Workbook wbook) {
         for (final ESheet sheet : this.sheets) {
-            sheet.attachTo(this.workbook);
+            sheet.attachTo(wbook);
         }
     }
 }

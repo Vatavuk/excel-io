@@ -26,6 +26,7 @@ package com.vgv.xls.templates;
 import com.vgv.xls.ECell;
 import com.vgv.xls.ECells;
 import com.vgv.xls.ERow;
+import com.vgv.xls.Props;
 import com.vgv.xls.Style;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -88,5 +89,10 @@ public class RowTemplate implements ERow {
     @Override
     public final ERow with(final ECells cells) {
         return this.origin.with(cells);
+    }
+
+    @Override
+    public ERow with(final Props<Row> props) {
+        return this.origin.with(props);
     }
 }
