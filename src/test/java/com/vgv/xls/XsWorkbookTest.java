@@ -86,4 +86,28 @@ public final class XsWorkbookTest {
             Matchers.equalTo(IndexedColors.GOLD.getIndex())
         );
     }
+
+    /**
+     * Creates workbook with multiple sheets.
+     * @throws IOException If fails
+     */
+    @Test
+    public void createsWorkbookWithMultipleSheets() throws IOException {
+        final String fsheet = "sheet1";
+        final String ssheet = "sheet2";
+        final Workbook wbook = new XsWorkbook()
+            .with(new XsSheet(new XsRow(new TextCell(fsheet))))
+            .with(new XsSheet(new XsRow(new TextCell(ssheet))))
+            .asWorkbook();
+        MatcherAssert.assertThat(
+            wbook.getSheetAt(0).getRow(1).getCell(0)
+                .getStringCellValue(),
+            Matchers.equalTo(fsheet)
+        );
+        MatcherAssert.assertThat(
+            wbook.getSheetAt(1).getRow(1).getCell(0)
+                .getStringCellValue(),
+            Matchers.equalTo(ssheet)
+        );
+    }
 }

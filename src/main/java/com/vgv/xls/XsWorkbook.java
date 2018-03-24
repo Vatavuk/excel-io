@@ -145,7 +145,7 @@ public final class XsWorkbook implements EWorkbook {
 
     @Override
     public EWorkbook with(final ESheet sheet) {
-        return new XsWorkbook(this.sheets.with(sheet));
+        return new XsWorkbook(this.sheets.with(sheet), this.workbook);
     }
 
     @Override
@@ -154,7 +154,7 @@ public final class XsWorkbook implements EWorkbook {
         for (final ESheet sheet : this.sheets) {
             elements.add(sheet.with(style));
         }
-        return new XsWorkbook(elements);
+        return new XsWorkbook(elements, this.workbook);
     }
 
     /**
