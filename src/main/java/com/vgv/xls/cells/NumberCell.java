@@ -23,7 +23,6 @@
  */
 package com.vgv.xls.cells;
 
-import com.vgv.xls.ECell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
@@ -36,6 +35,11 @@ import org.apache.poi.ss.usermodel.Row;
 public final class NumberCell extends AbstractStyleableCell {
 
     /**
+     * Cell position.
+     */
+    private final int position;
+
+    /**
      * Numeric value.
      */
     private final double value;
@@ -45,13 +49,23 @@ public final class NumberCell extends AbstractStyleableCell {
      * @param number Number
      */
     public NumberCell(final double number) {
+        this(-1, number);
+    }
+
+    /**
+     * Ctor.
+     * @param column Column
+     * @param number Number
+     */
+    public NumberCell(final int column, final double number) {
         super();
+        this.position = column;
         this.value = number;
     }
 
     @Override
     public Cell attachTo(final Row row) {
-        final Cell cell = ECell.EMPTY.attachTo(row);
+        final Cell cell = new EmptyCell(this.position).attachTo(row);
         cell.setCellValue(this.value);
         return cell;
     }

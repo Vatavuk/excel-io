@@ -37,6 +37,11 @@ import java.util.stream.Collectors;
 public final class CalendarCells extends AbstractStyleableCells {
 
     /**
+     * Position of cells.
+     */
+    private final int position;
+
+    /**
      * Array of calendar values.
      */
     private final Array<Calendar> values;
@@ -51,17 +56,37 @@ public final class CalendarCells extends AbstractStyleableCells {
 
     /**
      * Ctor.
+     * @param column Position of cells
+     * @param cvalues Values
+     */
+    public CalendarCells(final int column, final Calendar... cvalues) {
+        this(column, new Array<>(cvalues));
+    }
+
+    /**
+     * Ctor.
      * @param cvalues Values
      */
     public CalendarCells(final Iterable<Calendar> cvalues) {
+        this(-1, new Array<>(cvalues));
+    }
+
+    /**
+     * Ctor.
+     * @param column Position of cells
+     * @param cvalues Values
+     */
+    public CalendarCells(final int column, final Iterable<Calendar> cvalues) {
         super();
+        this.position = column;
         this.values = new Array<>(cvalues);
     }
 
     @Override
     public Array<ECell> asArray() {
         return new Array<>(this.values.stream()
-            .map(CalendarCell::new).collect(Collectors.toList())
+            .map(calendar -> new CalendarCell(this.position, calendar))
+            .collect(Collectors.toList())
         );
     }
 }

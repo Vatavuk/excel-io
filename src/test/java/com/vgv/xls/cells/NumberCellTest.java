@@ -36,13 +36,10 @@ import org.junit.Test;
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 public final class NumberCellTest {
 
-    /**
-     * Add cell containing numeric value to a row.
-     * @throws IOException IOException
-     */
     @Test
     public void addsCellContainingNumberToRow() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
@@ -53,6 +50,21 @@ public final class NumberCellTest {
             MatcherAssert.assertThat(
                 cell.getNumericCellValue(),
                 Matchers.equalTo(number)
+            );
+        }
+    }
+
+    @Test
+    public void addsCellContainingNumberInPosition() throws IOException {
+        try (final Workbook workbook = new XSSFWorkbook()) {
+            final int column = 2;
+            final Double number = 5.0;
+            final Cell cell = new NumberCell(column, number).attachTo(
+                workbook.createSheet().createRow(0)
+            );
+            MatcherAssert.assertThat(
+                cell.getColumnIndex(),
+                Matchers.equalTo(column)
             );
         }
     }

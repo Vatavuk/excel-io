@@ -37,13 +37,10 @@ import org.junit.Test;
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.3
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 public final class CalendarCellTest {
 
-    /**
-     * Add cell containing calendar value to a row.
-     * @throws IOException IOException
-     */
     @Test
     public void addsCellContainingCalendarToRow() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
@@ -54,6 +51,21 @@ public final class CalendarCellTest {
             MatcherAssert.assertThat(
                 cell.getDateCellValue(),
                 Matchers.notNullValue()
+            );
+        }
+    }
+
+    @Test
+    public void addsCellContainingCalendarWithPositioning() throws IOException {
+        try (final Workbook workbook = new XSSFWorkbook()) {
+            final int position = 2;
+            final Calendar calendar = Calendar.getInstance();
+            final Cell cell = new CalendarCell(position, calendar).attachTo(
+                workbook.createSheet().createRow(0)
+            );
+            MatcherAssert.assertThat(
+                cell.getColumnIndex(),
+                Matchers.equalTo(position)
             );
         }
     }

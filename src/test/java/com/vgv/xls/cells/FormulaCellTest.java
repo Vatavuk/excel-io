@@ -36,13 +36,10 @@ import org.junit.Test;
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 public final class FormulaCellTest {
 
-    /**
-     * Add cell containing formula value to a row.
-     * @throws IOException IOException
-     */
     @Test
     public void addsCellWithFormulaValueToRow() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
@@ -53,6 +50,21 @@ public final class FormulaCellTest {
             MatcherAssert.assertThat(
                 cell.getCellFormula(),
                 Matchers.containsString(formula)
+            );
+        }
+    }
+
+    @Test
+    public void addsCellWithFormulaValueInPosition() throws IOException {
+        try (final Workbook workbook = new XSSFWorkbook()) {
+            final int column = 2;
+            final String formula = "B1+B2";
+            final Cell cell = new FormulaCell(column, formula).attachTo(
+                workbook.createSheet().createRow(0)
+            );
+            MatcherAssert.assertThat(
+                cell.getColumnIndex(),
+                Matchers.equalTo(column)
             );
         }
     }

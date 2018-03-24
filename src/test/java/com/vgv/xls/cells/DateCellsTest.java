@@ -35,17 +35,29 @@ import org.junit.Test;
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.3
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 public final class DateCellsTest {
 
-    /**
-     * Create multiple cells containing date values.
-     */
     @Test
     public void createsMultipleDateCells() {
         final int expected = 3;
         final Date[] dates = {new Date(), new Date(), new Date()};
         final Array<ECell> cells = new DateCells(dates).asArray();
+        MatcherAssert.assertThat(
+            cells.size(),
+            Matchers.equalTo(expected)
+        );
+        MatcherAssert.assertThat(
+            cells.get(0),
+            Matchers.instanceOf(DateCell.class)
+        );
+    }
+
+    @Test
+    public void createsMultipleDateCellsInPosition() {
+        final int expected = 1;
+        final Array<ECell> cells = new DateCells(2, new Date()).asArray();
         MatcherAssert.assertThat(
             cells.size(),
             Matchers.equalTo(expected)

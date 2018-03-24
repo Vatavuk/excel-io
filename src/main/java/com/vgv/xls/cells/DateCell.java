@@ -23,7 +23,6 @@
  */
 package com.vgv.xls.cells;
 
-import com.vgv.xls.ECell;
 import java.util.Date;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -37,6 +36,11 @@ import org.apache.poi.ss.usermodel.Row;
 public final class DateCell extends AbstractStyleableCell {
 
     /**
+     * Cell position.
+     */
+    private final int position;
+
+    /**
      * Date value.
      */
     private final Date value;
@@ -46,13 +50,23 @@ public final class DateCell extends AbstractStyleableCell {
      * @param date Date
      */
     public DateCell(final Date date) {
+        this(-1, date);
+    }
+
+    /**
+     * Ctor.
+     * @param column Column
+     * @param date Date
+     */
+    public DateCell(final int column, final Date date) {
         super();
+        this.position = column;
         this.value = date;
     }
 
     @Override
     public Cell attachTo(final Row row) {
-        final Cell cell = ECell.EMPTY.attachTo(row);
+        final Cell cell = new EmptyCell(this.position).attachTo(row);
         cell.setCellValue(this.value);
         return cell;
     }

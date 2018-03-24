@@ -37,6 +37,11 @@ import java.util.stream.Collectors;
 public final class DateCells extends AbstractStyleableCells {
 
     /**
+     * Cell position.
+     */
+    private final int position;
+
+    /**
      * Array of date values.
      */
     private final Array<Date> dates;
@@ -51,17 +56,37 @@ public final class DateCells extends AbstractStyleableCells {
 
     /**
      * Ctor.
+     * @param column Position of cells
+     * @param values Values
+     */
+    public DateCells(final int column, final Date... values) {
+        this(column, new Array<>(values));
+    }
+
+    /**
+     * Ctor.
      * @param values Values
      */
     public DateCells(final Iterable<Date> values) {
+        this(-1, new Array<>(values));
+    }
+
+    /**
+     * Ctor.
+     * @param column Position of cells
+     * @param values Values
+     */
+    public DateCells(final int column, final Iterable<Date> values) {
         super();
+        this.position = column;
         this.dates = new Array<>(values);
     }
 
     @Override
     public Array<ECell> asArray() {
         return new Array<>(this.dates.stream()
-            .map(DateCell::new).collect(Collectors.toList())
+            .map(date -> new DateCell(this.position, date))
+            .collect(Collectors.toList())
         );
     }
 }

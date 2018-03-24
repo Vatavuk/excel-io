@@ -34,17 +34,29 @@ import org.junit.Test;
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 public final class FormulaCellsTest {
 
-    /**
-     * Create multiple cells containing numeric values.
-     */
     @Test
     public void createsMultipleNumberCells() {
         final int expected = 3;
         final String[] formulas = {"A+B", "A*B", "A-B"};
         final Array<ECell> cells = new FormulaCells(formulas).asArray();
+        MatcherAssert.assertThat(
+            cells.size(),
+            Matchers.equalTo(expected)
+        );
+        MatcherAssert.assertThat(
+            cells.get(0),
+            Matchers.instanceOf(FormulaCell.class)
+        );
+    }
+
+    @Test
+    public void createsMultipleNumberCellsInPosition() {
+        final int expected = 1;
+        final Array<ECell> cells = new FormulaCells(2, "C+D").asArray();
         MatcherAssert.assertThat(
             cells.size(),
             Matchers.equalTo(expected)

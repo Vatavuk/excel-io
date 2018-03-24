@@ -23,17 +23,18 @@
  */
 package com.vgv.xls.cells;
 
-import com.jcabi.immutable.Array;
 import com.vgv.xls.ECell;
-import java.util.stream.Collectors;
+import com.vgv.xls.Style;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 /**
- * Multiple cells that hold numeric values.
- * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
+ * Empty cell.
+ * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 1.0
  */
-public final class NumberCells extends AbstractStyleableCells {
+public final class EmptyCell implements ECell {
 
     /**
      * Cell position.
@@ -41,51 +42,52 @@ public final class NumberCells extends AbstractStyleableCells {
     private final int position;
 
     /**
-     * Array of numbers.
-     */
-    private final Array<Double> numbers;
-
-    /**
      * Ctor.
-     * @param values Values
      */
-    public NumberCells(final Double... values) {
-        this(new Array<>(values));
+    public EmptyCell() {
+        this(-1);
     }
 
     /**
      * Ctor.
-     * @param column Column
-     * @param values Values
+     * @param column Cell position
      */
-    public NumberCells(final int column, final Double... values) {
-        this(column, new Array<>(values));
-    }
-
-    /**
-     * Ctor.
-     * @param values Values
-     */
-    public NumberCells(final Iterable<Double> values) {
-        this(-1, new Array<>(values));
-    }
-
-    /**
-     * Ctor.
-     * @param column Column
-     * @param values Values
-     */
-    public NumberCells(final int column, final Iterable<Double> values) {
-        super();
+    public EmptyCell(final int column) {
         this.position = column;
-        this.numbers = new Array<>(values);
     }
 
     @Override
-    public Array<ECell> asArray() {
-        return new Array<>(this.numbers.stream()
-            .map(number -> new NumberCell(this.position, number))
-            .collect(Collectors.toList())
-        );
+    public Cell attachTo(final Row row) {
+        Cell cell;
+        if (this.position == -1) {
+            cell = EmptyCell.createCell((int) row.getLastCellNum(), row);
+        } else {
+            cell = row.getCell(this.position);
+            if (cell == null) {
+                cell = EmptyCell.createCell(this.position, row);
+            }
+        }
+        return cell;
+    }
+
+    @Override
+    public ECell with(final Style style) {
+        return new ECell.WithStyle(this, style);
+    }
+
+    /**
+     * Create cell in given position.
+     * @param position Position
+     * @param row Row
+     * @return Cell cell
+     */
+    private static Cell createCell(final int position, final Row row) {
+        final int index;
+        if (position < 0) {
+            index = 0;
+        } else {
+            index = position;
+        }
+        return row.createCell(index);
     }
 }

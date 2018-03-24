@@ -82,11 +82,6 @@ public class RowTemplate implements ERow {
     }
 
     @Override
-    public final ERow with(final ECell cell) {
-        return this.origin.with(cell);
-    }
-
-    @Override
     public final ERow with(final ECells cells) {
         return this.origin.with(cells);
     }

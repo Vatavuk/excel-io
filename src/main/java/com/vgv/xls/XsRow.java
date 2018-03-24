@@ -34,14 +34,18 @@ import org.apache.poi.ss.usermodel.Sheet;
  *
  * <p>This is how you can use it:</p>
  *
- *     new XsRow(new TextCell("txt"), new NumberCell(2))
- *
+ * new XsRow(new TextCell("txt"), new NumberCell(2))
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
  */
 @SuppressWarnings("PMD.TooManyMethods")
 public final class XsRow implements ERow {
+
+    /**
+     * Row position.
+     */
+    private final int index;
 
     /**
      * Array of cells.
@@ -58,15 +62,34 @@ public final class XsRow implements ERow {
 
     /**
      * Ctor.
+     * @param position Row position
+     * @param elements Cells
+     */
+    public XsRow(final int position, final ECell... elements) {
+        this(position, new Array<>(elements));
+    }
+
+    /**
+     * Ctor.
      * @param elements Cells
      */
     public XsRow(final Iterable<ECell> elements) {
+        this(-1, new Array<>(elements));
+    }
+
+    /**
+     * Ctor.
+     * @param position Row position
+     * @param elements Cells
+     */
+    public XsRow(final int position, final Iterable<ECell> elements) {
+        this.index = position;
         this.cells = new Array<>(elements);
     }
 
     @Override
     public Row attachTo(final Sheet sheet) {
-        final Row row = sheet.createRow(sheet.getLastRowNum() + 1);
+        final Row row = this.createRow(sheet);
         for (final ECell cell : this.cells) {
             cell.attachTo(row);
         }
@@ -88,11 +111,6 @@ public final class XsRow implements ERow {
     }
 
     @Override
-    public ERow with(final ECell cell) {
-        return new XsRow(this.cells.with(cell));
-    }
-
-    @Override
     public ERow with(final ECells elements) {
         return new XsRow(this.cells.with(elements.asArray()));
     }
@@ -101,6 +119,24 @@ public final class XsRow implements ERow {
     @SuppressWarnings("unchecked")
     public XsRow.WithProps with(final Props<Row> props) {
         return new XsRow.WithProps(this, props);
+    }
+
+    /**
+     * Create new row.
+     * @param sheet Sheet
+     * @return Row Row
+     */
+    private Row createRow(final Sheet sheet) {
+        Row row;
+        if (this.index == -1) {
+            row = sheet.createRow(sheet.getLastRowNum() + 1);
+        } else {
+            row = sheet.getRow(this.index);
+            if (row == null) {
+                row = sheet.createRow(this.index);
+            }
+        }
+        return row;
     }
 
     /**
@@ -143,11 +179,6 @@ public final class XsRow implements ERow {
         @Override
         public ERow with(final ECell... cells) {
             return this.origin.with(cells);
-        }
-
-        @Override
-        public ERow with(final ECell cell) {
-            return this.origin.with(cell);
         }
 
         @Override

@@ -41,12 +41,10 @@ import org.junit.Test;
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 public final class TextCellsTest {
 
-    /**
-     * Create multiple cells containing text values.
-     */
     @Test
     public void createsMultipleTextCells() {
         final int expected = 3;
@@ -62,10 +60,21 @@ public final class TextCellsTest {
         );
     }
 
-    /**
-     * Create multiple cells containing text values and specific style.
-     * @throws IOException If fails
-     */
+    @Test
+    public void createsMultipleTextCellsInPosition() {
+        final int expected = 1;
+        final Array<ECell> cells = new TextCells(2, "d")
+            .asArray();
+        MatcherAssert.assertThat(
+            cells.size(),
+            Matchers.equalTo(expected)
+        );
+        MatcherAssert.assertThat(
+            cells.get(0),
+            Matchers.instanceOf(TextCell.class)
+        );
+    }
+
     @Test
     public void createsMultipleTextCellsWithStyle() throws IOException {
         final Array<ECell> cells = new TextCells("a", "b", "c")

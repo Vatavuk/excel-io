@@ -39,28 +39,6 @@ import org.apache.poi.ss.usermodel.Row;
 public interface ECell {
 
     /**
-     * Empty cell.
-     */
-    ECell EMPTY = new ECell() {
-        @Override
-        public Cell attachTo(final Row row) {
-            final short index = row.getLastCellNum();
-            final int position;
-            if ((int) index < 0) {
-                position = 0;
-            } else {
-                position = (int) index;
-            }
-            return row.createCell(position);
-        }
-
-        @Override
-        public ECell with(final Style style) {
-            return new ECell.WithStyle(this, style);
-        }
-    };
-
-    /**
      * Attach cell to a row.
      * @param row Row
      * @return Cell

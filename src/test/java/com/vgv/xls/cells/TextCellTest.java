@@ -42,13 +42,10 @@ import org.junit.Test;
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 public final class TextCellTest {
 
-    /**
-     * Add cell containing textual value to a row.
-     * @throws IOException IOException
-     */
     @Test
     public void addsCellContainingTextToRow() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
@@ -63,10 +60,21 @@ public final class TextCellTest {
         }
     }
 
-    /**
-     * Add style to a cell.
-     * @throws IOException IOException
-     */
+    @Test
+    public void addsCellContainingTextInPosition() throws IOException {
+        try (final Workbook workbook = new XSSFWorkbook()) {
+            final int column = 2;
+            final String text = "txt";
+            final Cell cell = new TextCell(column, text).attachTo(
+                workbook.createSheet().createRow(0)
+            );
+            MatcherAssert.assertThat(
+                cell.getColumnIndex(),
+                Matchers.equalTo(column)
+            );
+        }
+    }
+
     @Test
     public void addsStyleToCell() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {

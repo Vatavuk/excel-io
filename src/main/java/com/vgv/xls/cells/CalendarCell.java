@@ -23,7 +23,6 @@
  */
 package com.vgv.xls.cells;
 
-import com.vgv.xls.ECell;
 import java.util.Calendar;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -37,6 +36,11 @@ import org.apache.poi.ss.usermodel.Row;
 public final class CalendarCell extends AbstractStyleableCell {
 
     /**
+     * Cell position.
+     */
+    private final int position;
+
+    /**
      * Calendar value.
      */
     private final Calendar value;
@@ -46,13 +50,23 @@ public final class CalendarCell extends AbstractStyleableCell {
      * @param calendar Calendar
      */
     public CalendarCell(final Calendar calendar) {
+        this(-1, calendar);
+    }
+
+    /**
+     * Ctor.
+     * @param column Cell position
+     * @param calendar Calendar
+     */
+    public CalendarCell(final int column, final Calendar calendar) {
         super();
+        this.position = column;
         this.value = calendar;
     }
 
     @Override
     public Cell attachTo(final Row row) {
-        final Cell cell = ECell.EMPTY.attachTo(row);
+        final Cell cell = new EmptyCell(this.position).attachTo(row);
         cell.setCellValue(this.value);
         return cell;
     }

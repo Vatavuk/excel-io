@@ -36,6 +36,11 @@ import java.util.stream.Collectors;
 public final class TextCells extends AbstractStyleableCells {
 
     /**
+     * Position of cells.
+     */
+    private final int position;
+
+    /**
      * Array of text values.
      */
     private final Array<String> text;
@@ -50,17 +55,37 @@ public final class TextCells extends AbstractStyleableCells {
 
     /**
      * Ctor.
+     * @param column Column
+     * @param values Values
+     */
+    public TextCells(final int column, final String... values) {
+        this(column, new Array<>(values));
+    }
+
+    /**
+     * Ctor.
      * @param values Values
      */
     public TextCells(final Iterable<String> values) {
+        this(-1, new Array<>(values));
+    }
+
+    /**
+     * Ctor.
+     * @param column Column
+     * @param values Values
+     */
+    public TextCells(final int column, final Iterable<String> values) {
         super();
+        this.position = column;
         this.text = new Array<>(values);
     }
 
     @Override
     public Array<ECell> asArray() {
         return new Array<>(this.text.stream()
-            .map(TextCell::new).collect(Collectors.toList())
+            .map(txt -> new TextCell(this.position, txt))
+            .collect(Collectors.toList())
         );
     }
 }

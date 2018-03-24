@@ -23,6 +23,7 @@
  */
 package com.vgv.xls;
 
+import java.io.IOException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -38,8 +39,9 @@ public interface ESheet {
      * Attach sheet to a workbook.
      * @param workbook Workbook
      * @return Sheet
+     * @throws IOException If fails
      */
-    Sheet attachTo(Workbook workbook);
+    Sheet attachTo(Workbook workbook) throws IOException;
 
     /**
      * Add row to the sheet.

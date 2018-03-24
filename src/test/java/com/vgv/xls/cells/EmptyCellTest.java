@@ -24,7 +24,6 @@
 package com.vgv.xls.cells;
 
 import java.io.IOException;
-import java.util.Date;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -33,39 +32,38 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 /**
- * Test case for {@link DateCell}.
+ * Test case for {@link EmptyCell}.
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
- * @since 0.3
+ * @since 1.0
  * @checkstyle JavadocMethodCheck (500 lines)
  */
-public final class DateCellTest {
+public final class EmptyCellTest {
 
     @Test
-    public void addsCellContainingDateToRow() throws IOException {
+    public void createsEmptyCell() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
-            final Date date = new Date();
-            final Cell cell = new DateCell(date).attachTo(
-                workbook.createSheet().createRow(0)
+            final int column = 0;
+            final Cell cell = new EmptyCell().attachTo(
+                workbook.createSheet().createRow(column)
             );
             MatcherAssert.assertThat(
-                cell.getDateCellValue(),
-                Matchers.equalTo(date)
+                cell.getColumnIndex(),
+                Matchers.equalTo(column)
             );
         }
     }
 
     @Test
-    public void addsCellContainingDateWithPosition() throws IOException {
+    public void createsEmptyCellWithPositioning() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
-            final int position = 2;
-            final Date date = new Date();
-            final Cell cell = new DateCell(position, date).attachTo(
+            final int column = 2;
+            final Cell cell = new EmptyCell(2).attachTo(
                 workbook.createSheet().createRow(0)
             );
             MatcherAssert.assertThat(
                 cell.getColumnIndex(),
-                Matchers.equalTo(position)
+                Matchers.equalTo(column)
             );
         }
     }

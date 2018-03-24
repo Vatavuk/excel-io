@@ -106,4 +106,23 @@ public final class XsRowTest {
             );
         }
     }
+
+    /**
+     * Add row to specific position in sheet.
+     * @throws IOException If fails
+     */
+    @Test
+    public void addsRowWithAbsolutePositionToSheet() throws IOException {
+        try (final Workbook wbook = new XSSFWorkbook()) {
+            final int position = 2;
+            final Row row = new XsRow(
+                position,
+                new TextCell("textPos")
+            ).attachTo(wbook.createSheet());
+            MatcherAssert.assertThat(
+                row.getRowNum(),
+                Matchers.equalTo(position)
+            );
+        }
+    }
 }

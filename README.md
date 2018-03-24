@@ -33,7 +33,7 @@ Latest version [here](https://github.com/Vatavuk/vgv-xls/releases)
 Java version required: 1.8+.
 
 
-## Example
+## Create spreadsheet
 ```java
 new XsWorkbook(
     new XsSheet(
@@ -56,12 +56,25 @@ new XsWorkbook(
                     )
                 )
             )
-            .with(new XsProps<>(new Height((short) 20)))
+            .with(new XsProps<>(new Height((short) 500)))
     )
 ).saveTo("Test.xlsx");
 ```
 This is how the result looks like:
 <img src="https://i.imgur.com/3hUJkJ2.png"/>
+
+## Read and modify spreadsheet
+Read from "Test.xlsx" file and modify cell int the second row/first column.
+```java
+new XsWorkbook("Test.xlsx")
+    .with(new XsSheet.ReadFrom(0)
+        .with(
+            new XsRow(2,
+                new TextCell(0, "UPDATED")
+            )
+        )
+    ).saveTo("Updated.xlsx");
+```
 
 ## Custom styles
 You can create custom cells/rows/sheets:

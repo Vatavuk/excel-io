@@ -34,17 +34,31 @@ import org.junit.Test;
  * @author Vedran Grgo Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 public final class NumberCellsTest {
 
-    /**
-     * Create multiple cells containing numeric values.
-     */
     @Test
     public void createsMultipleNumberCells() {
         final int expected = 3;
         final Double[] numbers = {1.0, 2.0, 3.0};
         final Array<ECell> cells = new NumberCells(numbers).asArray();
+        MatcherAssert.assertThat(
+            cells.size(),
+            Matchers.equalTo(expected)
+        );
+        MatcherAssert.assertThat(
+            cells.get(0),
+            Matchers.instanceOf(NumberCell.class)
+        );
+    }
+
+    @Test
+    public void createsMultipleNumberCellsInPosition() {
+        final int expected = 1;
+        final int column = 2;
+        final double number = 5.0;
+        final Array<ECell> cells = new NumberCells(column, number).asArray();
         MatcherAssert.assertThat(
             cells.size(),
             Matchers.equalTo(expected)

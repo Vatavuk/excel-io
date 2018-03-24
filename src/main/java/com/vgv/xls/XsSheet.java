@@ -24,10 +24,13 @@
 package com.vgv.xls;
 
 import com.jcabi.immutable.Array;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.cactoos.Func;
+import org.cactoos.func.IoCheckedFunc;
 
 /**
  * Sheet in an excel table.
@@ -154,7 +157,7 @@ public final class XsSheet implements ESheet {
         }
 
         @Override
-        public Sheet attachTo(final Workbook workbook) {
+        public Sheet attachTo(final Workbook workbook) throws IOException {
             final Sheet sheet = this.origin.attachTo(workbook);
             this.props.accept(sheet);
             return sheet;
@@ -168,6 +171,75 @@ public final class XsSheet implements ESheet {
         @Override
         public ESheet with(final Style style) {
             return this.origin.with(style);
+        }
+    }
+
+    /**
+     * Read sheet from existing one by title or index.
+     */
+    public static final class ReadFrom implements ESheet {
+
+        /**
+         * Func.
+         */
+        private final Func<Workbook, Sheet> func;
+
+        /**
+         * Array of rows.
+         */
+        private final Array<ERow> rows;
+
+        /**
+         * Ctor.
+         * @param title Title
+         */
+        public ReadFrom(final String title) {
+            this(workbook -> workbook.getSheet(title), new Array<>());
+        }
+
+        /**
+         * Ctor.
+         * @param index Index
+         */
+        public ReadFrom(final int index) {
+            this(workbook -> workbook.getSheetAt(index), new Array<>());
+        }
+
+        /**
+         * Ctor.
+         * @param function Function
+         * @param elements Elements
+         */
+        public ReadFrom(final Func<Workbook, Sheet> function,
+            final Iterable<ERow> elements) {
+            this.func = function;
+            this.rows = new Array<>(elements);
+        }
+
+        @Override
+        public Sheet attachTo(final Workbook workbook) throws IOException {
+            final Sheet sheet = new IoCheckedFunc<>(this.func).apply(workbook);
+            if (sheet == null) {
+                throw new IOException("Sheet not found on specified index");
+            }
+            for (final ERow row : this.rows) {
+                row.attachTo(sheet);
+            }
+            return sheet;
+        }
+
+        @Override
+        public ESheet with(final ERow row) {
+            return new XsSheet.ReadFrom(this.func, this.rows.with(row));
+        }
+
+        @Override
+        public ESheet with(final Style style) {
+            final List<ERow> elements = new ArrayList<>(this.rows.size());
+            for (final ERow row : this.rows) {
+                elements.add(row.with(style));
+            }
+            return new XsSheet.ReadFrom(this.func, elements);
         }
     }
 }

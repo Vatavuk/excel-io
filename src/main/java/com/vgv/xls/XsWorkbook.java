@@ -160,8 +160,9 @@ public final class XsWorkbook implements EWorkbook {
     /**
      * Attach sheets.
      * @param wbook Workbook
+     * @throws IOException If fails
      */
-    private void attachSheets(final Workbook wbook) {
+    private void attachSheets(final Workbook wbook) throws IOException {
         for (final ESheet sheet : this.sheets) {
             sheet.attachTo(wbook);
         }

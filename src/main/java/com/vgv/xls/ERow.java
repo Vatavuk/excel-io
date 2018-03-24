@@ -56,13 +56,6 @@ public interface ERow {
     ERow with(ECell... cells);
 
     /**
-     * Add cell to the row.
-     * @param cell Cell
-     * @return Row
-     */
-    ERow with(ECell cell);
-
-    /**
      * Add cells to the row.
      * @param cells Cells
      * @return Row

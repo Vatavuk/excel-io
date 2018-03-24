@@ -35,18 +35,31 @@ import org.junit.Test;
  * @author Vedran Vatavuk (123vgv@gmail.com)
  * @version $Id$
  * @since 1.0
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 public final class CalendarCellsTest {
 
-    /**
-     * Create multiple cells containing calendar values.
-     */
     @Test
     public void createsMultipleCalendarCells() {
         final int expected = 3;
         final Calendar calendar = Calendar.getInstance();
         final Calendar[] dates = {calendar, calendar, calendar};
         final Array<ECell> cells = new CalendarCells(dates).asArray();
+        MatcherAssert.assertThat(
+            cells.size(),
+            Matchers.equalTo(expected)
+        );
+        MatcherAssert.assertThat(
+            cells.get(0),
+            Matchers.instanceOf(CalendarCell.class)
+        );
+    }
+
+    @Test
+    public void createsMultipleCalendarCellsInPosition() {
+        final int expected = 1;
+        final Array<ECell> cells =
+            new CalendarCells(2, Calendar.getInstance()).asArray();
         MatcherAssert.assertThat(
             cells.size(),
             Matchers.equalTo(expected)

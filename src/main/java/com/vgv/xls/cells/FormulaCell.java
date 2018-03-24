@@ -23,7 +23,6 @@
  */
 package com.vgv.xls.cells;
 
-import com.vgv.xls.ECell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
@@ -36,6 +35,11 @@ import org.apache.poi.ss.usermodel.Row;
 public final class FormulaCell extends AbstractStyleableCell {
 
     /**
+     * Cell position.
+     */
+    private final int position;
+
+    /**
      * Formula value.
      */
     private final String value;
@@ -45,13 +49,23 @@ public final class FormulaCell extends AbstractStyleableCell {
      * @param formula Formula
      */
     public FormulaCell(final String formula) {
+        this(-1, formula);
+    }
+
+    /**
+     * Ctor.
+     * @param column Column
+     * @param formula Formula
+     */
+    public FormulaCell(final int column, final String formula) {
         super();
+        this.position = column;
         this.value = formula;
     }
 
     @Override
     public Cell attachTo(final Row row) {
-        final Cell cell = ECell.EMPTY.attachTo(row);
+        final Cell cell = new EmptyCell(this.position).attachTo(row);
         cell.setCellFormula(this.value);
         return cell;
     }
