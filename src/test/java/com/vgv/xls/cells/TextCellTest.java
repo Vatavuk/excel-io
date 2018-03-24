@@ -64,13 +64,14 @@ public final class TextCellTest {
     public void addsCellContainingTextInPosition() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
             final int column = 2;
+            final int expected = 1;
             final String text = "txt";
             final Cell cell = new TextCell(column, text).attachTo(
                 workbook.createSheet().createRow(0)
             );
             MatcherAssert.assertThat(
                 cell.getColumnIndex(),
-                Matchers.equalTo(column)
+                Matchers.equalTo(expected)
             );
         }
     }

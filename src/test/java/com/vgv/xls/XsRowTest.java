@@ -115,13 +115,14 @@ public final class XsRowTest {
     public void addsRowWithAbsolutePositionToSheet() throws IOException {
         try (final Workbook wbook = new XSSFWorkbook()) {
             final int position = 2;
+            final int expected = 1;
             final Row row = new XsRow(
                 position,
                 new TextCell("textPos")
             ).attachTo(wbook.createSheet());
             MatcherAssert.assertThat(
                 row.getRowNum(),
-                Matchers.equalTo(position)
+                Matchers.equalTo(expected)
             );
         }
     }

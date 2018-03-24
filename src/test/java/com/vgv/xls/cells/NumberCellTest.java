@@ -58,13 +58,14 @@ public final class NumberCellTest {
     public void addsCellContainingNumberInPosition() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
             final int column = 2;
+            final int expected = 1;
             final Double number = 5.0;
             final Cell cell = new NumberCell(column, number).attachTo(
                 workbook.createSheet().createRow(0)
             );
             MatcherAssert.assertThat(
                 cell.getColumnIndex(),
-                Matchers.equalTo(column)
+                Matchers.equalTo(expected)
             );
         }
     }

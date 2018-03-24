@@ -58,13 +58,14 @@ public final class FormulaCellTest {
     public void addsCellWithFormulaValueInPosition() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
             final int column = 2;
+            final int expected = 1;
             final String formula = "B1+B2";
             final Cell cell = new FormulaCell(column, formula).attachTo(
                 workbook.createSheet().createRow(0)
             );
             MatcherAssert.assertThat(
                 cell.getColumnIndex(),
-                Matchers.equalTo(column)
+                Matchers.equalTo(expected)
             );
         }
     }

@@ -58,12 +58,13 @@ public final class EmptyCellTest {
     public void createsEmptyCellWithPositioning() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
             final int column = 2;
-            final Cell cell = new EmptyCell(2).attachTo(
+            final int expected = 1;
+            final Cell cell = new EmptyCell(column).attachTo(
                 workbook.createSheet().createRow(0)
             );
             MatcherAssert.assertThat(
                 cell.getColumnIndex(),
-                Matchers.equalTo(column)
+                Matchers.equalTo(expected)
             );
         }
     }

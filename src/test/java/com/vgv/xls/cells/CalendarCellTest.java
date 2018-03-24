@@ -59,13 +59,14 @@ public final class CalendarCellTest {
     public void addsCellContainingCalendarWithPositioning() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
             final int position = 2;
+            final int expected = 1;
             final Calendar calendar = Calendar.getInstance();
             final Cell cell = new CalendarCell(position, calendar).attachTo(
                 workbook.createSheet().createRow(0)
             );
             MatcherAssert.assertThat(
                 cell.getColumnIndex(),
-                Matchers.equalTo(position)
+                Matchers.equalTo(expected)
             );
         }
     }

@@ -55,7 +55,7 @@ public final class XsWorkbookTest {
             )
         ).asWorkbook();
         MatcherAssert.assertThat(
-            workbook.getSheetAt(0).getRow(1)
+            workbook.getSheetAt(0).getRow(0)
                 .getCell(0).getStringCellValue(),
             Matchers.containsString(text)
         );
@@ -81,7 +81,7 @@ public final class XsWorkbookTest {
             )
         ).asWorkbook();
         MatcherAssert.assertThat(
-            workbook.getSheetAt(0).getRow(1)
+            workbook.getSheetAt(0).getRow(0)
                 .getCell(0).getCellStyle().getFillForegroundColor(),
             Matchers.equalTo(IndexedColors.GOLD.getIndex())
         );
@@ -100,12 +100,12 @@ public final class XsWorkbookTest {
             .with(new XsSheet(new XsRow(new TextCell(ssheet))))
             .asWorkbook();
         MatcherAssert.assertThat(
-            wbook.getSheetAt(0).getRow(1).getCell(0)
+            wbook.getSheetAt(0).getRow(0).getCell(0)
                 .getStringCellValue(),
             Matchers.equalTo(fsheet)
         );
         MatcherAssert.assertThat(
-            wbook.getSheetAt(1).getRow(1).getCell(0)
+            wbook.getSheetAt(1).getRow(0).getCell(0)
                 .getStringCellValue(),
             Matchers.equalTo(ssheet)
         );

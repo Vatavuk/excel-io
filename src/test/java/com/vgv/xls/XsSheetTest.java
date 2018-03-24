@@ -82,7 +82,7 @@ public final class XsSheetTest {
                 )
                 .attachTo(workbook);
             MatcherAssert.assertThat(
-                sheet.getRow(1).getCell(0)
+                sheet.getRow(0).getCell(0)
                     .getCellStyle().getFillForegroundColor(),
                 Matchers.equalTo(IndexedColors.GOLD.getIndex())
             );

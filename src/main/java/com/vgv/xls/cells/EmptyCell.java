@@ -62,9 +62,9 @@ public final class EmptyCell implements ECell {
         if (this.position == -1) {
             cell = EmptyCell.createCell((int) row.getLastCellNum(), row);
         } else {
-            cell = row.getCell(this.position);
+            cell = row.getCell(this.position - 1);
             if (cell == null) {
-                cell = EmptyCell.createCell(this.position, row);
+                cell = EmptyCell.createCell(this.position - 1, row);
             }
         }
         return cell;

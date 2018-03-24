@@ -129,11 +129,13 @@ public final class XsRow implements ERow {
     private Row createRow(final Sheet sheet) {
         Row row;
         if (this.index == -1) {
-            row = sheet.createRow(sheet.getLastRowNum() + 1);
+            final int num = sheet.getLastRowNum();
+            row = sheet.createRow(num);
+            sheet.createRow(num + 1);
         } else {
-            row = sheet.getRow(this.index);
+            row = sheet.getRow(this.index - 1);
             if (row == null) {
-                row = sheet.createRow(this.index);
+                row = sheet.createRow(this.index - 1);
             }
         }
         return row;

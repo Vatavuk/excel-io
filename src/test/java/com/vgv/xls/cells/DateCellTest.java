@@ -59,13 +59,14 @@ public final class DateCellTest {
     public void addsCellContainingDateWithPosition() throws IOException {
         try (final Workbook workbook = new XSSFWorkbook()) {
             final int position = 2;
+            final int expected = 1;
             final Date date = new Date();
             final Cell cell = new DateCell(position, date).attachTo(
                 workbook.createSheet().createRow(0)
             );
             MatcherAssert.assertThat(
                 cell.getColumnIndex(),
-                Matchers.equalTo(position)
+                Matchers.equalTo(expected)
             );
         }
     }
