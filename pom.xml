@@ -32,14 +32,14 @@ SOFTWARE.
         <version>0.49.3</version>
     </parent>
     <groupId>hr.com.vgv</groupId>
-    <artifactId>vgv-xls</artifactId>
+    <artifactId>excel-io</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>vgv-xls</name>
-    <description>Object-oriented java library for reading and writing
-        Microsoft Office Excel spreadsheets
+    <name>excel-io</name>
+    <description>Java excel library for reading and writing
+        spreadsheets in object-oriented style
     </description>
-    <url>http://github.com/Vatavuk/vgv-xls</url>
+    <url>http://github.com/Vatavuk/excel-io</url>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -55,9 +55,9 @@ SOFTWARE.
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git://github.com/Vatavuk/vgv-xls.git</connection>
-        <developerConnection>scm:git:ssh://github.com:Vatavuk/vgv-xls.git</developerConnection>
-        <url>http://github.com/Vatavuk/vgv-xls/tree/master</url>
+        <connection>scm:git:git://github.com/Vatavuk/excel-io.git</connection>
+        <developerConnection>scm:git:ssh://github.com:Vatavuk/excel-io.git</developerConnection>
+        <url>http://github.com/Vatavuk/excel-io/tree/master</url>
     </scm>
     <dependencies>
         <dependency>
