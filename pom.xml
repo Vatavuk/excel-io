@@ -33,7 +33,7 @@ SOFTWARE.
     </parent>
     <groupId>hr.com.vgv</groupId>
     <artifactId>excel-io</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
     <name>excel-io</name>
     <description>Java excel library for reading and writing
