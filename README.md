@@ -1,5 +1,6 @@
-#Excel-io
-###Java excel library - excel spreadsheets using Apache POI
+# Excel-io
+### Java excel library - excel spreadsheets using Apache POI
+<img src="https://png.icons8.com/color/100/000000/ms-excel.png">
 
 [![EO principles respected here](http://www.elegantobjects.org/badge.svg)](http://www.elegantobjects.org)
 [![DevOps By Rultor.com](http://www.rultor.com/b/Vatavuk/excel-io)](http://www.rultor.com/p/Vatavuk/excel-io)
