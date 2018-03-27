@@ -71,7 +71,7 @@ new XsWorkbook("Test.xlsx")
     .with(new XsSheet.ReadFrom(0)
         .with(
             new XsRow(2,
-                new TextCell(0, "UPDATED")
+                new TextCell(1, "UPDATED")
             )
         )
     ).saveTo("Updated.xlsx");
