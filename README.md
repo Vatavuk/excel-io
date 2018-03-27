@@ -16,11 +16,6 @@
 This is an object-oriented java library for reading and writing Microsoft Office Excel spreadsheets.
 It is a wrapper around Apache POI that provides elegant and user friendly interface for creating Excel documents. 
 
-**Note**.
-This is work in progress. Some styles and properties are missing.
-I will be regularly committing more and more functionality. Feel free to contribute.
-
-
 **How to use**.
 Latest version [here](https://github.com/Vatavuk/excel-io/releases)
 
